@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
 import {
   MatTooltipModule,
   matTooltipAnimations,
@@ -32,6 +33,7 @@ import {
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
+    MatTabsModule,
   ],
 })
 export class TicketsModule {}
