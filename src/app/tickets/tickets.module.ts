@@ -20,9 +20,10 @@ import {
 } from '@angular/material/tooltip';
 import { AcoesTicketComponent } from './tickets/acoes-ticket/acoes-ticket.component';
 import { DetailsTicketComponent } from './tickets/details-ticket/details-ticket.component';
+import { AttachmentsTicketComponent } from './tickets/attachments-ticket/attachments-ticket.component';
 
 @NgModule({
-  declarations: [MenuComponent, ConteudoComponent, TicketsComponent, AcoesTicketComponent, DetailsTicketComponent],
+  declarations: [MenuComponent, ConteudoComponent, TicketsComponent, AcoesTicketComponent, DetailsTicketComponent, AttachmentsTicketComponent],
   imports: [
     CommonModule,
     TicketsRoutingModule,

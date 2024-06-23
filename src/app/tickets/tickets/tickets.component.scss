@@ -5,7 +5,13 @@
   background-color: #fafafa;
 }
 
-.ticket-conteudo {
-  height: calc(100vh - 112px);
-  overflow-y: auto;
+.ticket-container {
+  .ticket-conteudo {
+    height: calc(100vh - 160px);
+    overflow-y: auto;
+
+    .mat-tab-label {
+      font-size: 5px !important;
+    }
+  }
 }
