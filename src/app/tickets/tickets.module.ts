@@ -18,9 +18,11 @@ import {
   MatTooltipModule,
   matTooltipAnimations,
 } from '@angular/material/tooltip';
+import { AcoesTicketComponent } from './tickets/acoes-ticket/acoes-ticket.component';
+import { DetailsTicketComponent } from './tickets/details-ticket/details-ticket.component';
 
 @NgModule({
-  declarations: [MenuComponent, ConteudoComponent, TicketsComponent],
+  declarations: [MenuComponent, ConteudoComponent, TicketsComponent, AcoesTicketComponent, DetailsTicketComponent],
   imports: [
     CommonModule,
     TicketsRoutingModule,

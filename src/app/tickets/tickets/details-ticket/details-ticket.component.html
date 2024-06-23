@@ -1,0 +1,84 @@
+<mat-form-field appearance="outline" class="formulario-titulo">
+  <input matInput />
+  <mat-hint class="nome-input">Title</mat-hint>
+</mat-form-field>
+
+<mat-card class="formulario-assignment-container" appearance="outlined">
+  <mat-card-header>
+    <mat-card-subtitle>Assignment</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div appearance="outline" class="formulario-assignment">
+      <div class="usuario-assignment">
+        <mat-form-field appearance="outline" class="input-assignment">
+          <mat-label>Reported by:</mat-label>
+          <input matInput class="userID" maxlength="7" />
+          <button mat-icon-button matSuffix matTooltip="Search user">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button matSuffix matTooltip="User data">
+            <mat-icon>perm_identity</mat-icon>
+          </button>
+          <button mat-icon-button matSuffix matTooltip="User history">
+            <mat-icon>reorder</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="input-assignment">
+          <mat-label>Reported for:</mat-label>
+          <input matInput class="userID" maxlength="7" />
+          <button mat-icon-button matSuffix matTooltip="Search user">
+            <mat-icon>search</mat-icon>
+          </button>
+          <button mat-icon-button matSuffix matTooltip="User data">
+            <mat-icon>perm_identity</mat-icon>
+          </button>
+          <button mat-icon-button matSuffix matTooltip="User history">
+            <mat-icon>reorder</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="group-assignment">
+        <mat-form-field appearance="outline" class="input-assignment">
+          <mat-label>Assigned group:</mat-label>
+          <input matInput />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="input-assignment">
+          <mat-label>Managed by:</mat-label>
+          <input matInput disabled />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="input-assignment">
+          <mat-label>Wait on External:</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="formulario-description-container" appearance="outlined">
+  <mat-card-header>
+    <mat-card-subtitle>Description</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field
+      appearance="outline"
+      class="input-assignment description-area-texto"
+    >
+      <textarea matInput></textarea>
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="formulario-description-container" appearance="outlined">
+  <mat-card-header>
+    <mat-card-subtitle>Personal Data</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field
+      appearance="outline"
+      class="input-assignment description-area-texto"
+    >
+      <textarea matInput></textarea>
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>

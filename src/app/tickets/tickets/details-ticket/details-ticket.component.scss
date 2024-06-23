@@ -1,0 +1,49 @@
+@mixin formulario {
+  margin: 2em;
+  width: calc(100% - 4em);
+  font-size: 14px;
+  background-color: #fafafa;
+}
+
+.formulario-titulo {
+  @include formulario();
+
+  .nome-input {
+    font-size: 15px;
+  }
+}
+
+.formulario-assignment-container {
+  @include formulario();
+  margin-top: 0;
+
+  .formulario-assignment {
+    width: 100%;
+    display: flex;
+
+    .input-assignment {
+      width: 70%;
+
+      .userID {
+        text-transform: uppercase;
+      }
+    }
+
+    .usuario-assignment,
+    .group-assignment {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.formulario-description-container {
+  @include formulario();
+  margin-top: 0;
+
+  .description-area-texto {
+    width: 100%;
+    font-size: 12px;
+  }
+}
