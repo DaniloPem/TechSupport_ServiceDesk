@@ -1,8 +1,20 @@
+$fundo-ticket: #fafafa;
+
 @mixin formulario {
-  margin: 2em;
+  margin: 0 0 0 2em;
   width: calc(100% - 4em);
-  font-size: 14px;
-  background-color: #fafafa;
+  font-size: 12px;
+  background-color: $fundo-ticket;
+}
+
+.formulario-ticketID {
+  @include formulario();
+  width: 150px;
+  margin-top: 1.5em;
+
+  .status {
+    color: black;
+  }
 }
 
 .formulario-titulo {
@@ -16,6 +28,7 @@
 .formulario-assignment-container {
   @include formulario();
   margin-top: 0;
+  margin-bottom: 1em;
 
   .formulario-assignment {
     width: 100%;
@@ -29,6 +42,11 @@
       }
     }
 
+    .user-nome {
+      font-size: 14px;
+      color: black;
+    }
+
     .usuario-assignment,
     .group-assignment {
       width: 50%;
@@ -38,12 +56,34 @@
   }
 }
 
-.formulario-description-container {
+.formulario-description-container,
+.formulario-personal-data-container,
+.formulario-solution-container {
   @include formulario();
   margin-top: 0;
+  margin-bottom: 1em;
 
   .description-area-texto {
     width: 100%;
     font-size: 12px;
+  }
+}
+
+.categorization-tags-container {
+  @include formulario();
+  display: flex;
+  gap: 10%;
+  margin-bottom: 1em;
+
+  .formulario-categorization-container,
+  .formulario-tags-container {
+    width: 45%;
+    background-color: $fundo-ticket;
+
+    .input-categorization,
+    .input-tags {
+      font-size: 12px;
+      margin-right: 10px;
+    }
   }
 }

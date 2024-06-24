@@ -1,6 +1,28 @@
+<div class="id-status-ticket">
+  <mat-form-field appearance="outline" class="formulario-ticketID">
+    <mat-label>Ticket ID:</mat-label>
+    <input matInput maxlength="9" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="formulario-ticketID">
+    <mat-label>Status:</mat-label>
+    <input matInput value="Open" disabled class="status" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="formulario-ticketID">
+    <mat-label>Date:</mat-label>
+    <input matInput value="24/06/2024" disabled class="status" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="formulario-ticketID">
+    <mat-label>Age:</mat-label>
+    <input matInput value="00:00:05" disabled class="status" />
+  </mat-form-field>
+</div>
+
 <mat-form-field appearance="outline" class="formulario-titulo">
+  <mat-label>Title:</mat-label>
   <input matInput />
-  <mat-hint class="nome-input">Title</mat-hint>
 </mat-form-field>
 
 <mat-card class="formulario-assignment-container" appearance="outlined">
@@ -23,6 +45,16 @@
             <mat-icon>reorder</mat-icon>
           </button>
         </mat-form-field>
+
+        <mat-form-field appearance="outline" class="input-assignment">
+          <input
+            matInput
+            class="user-nome"
+            disabled
+            value="Danilo Pezo Mendoza"
+          />
+        </mat-form-field>
+
         <mat-form-field appearance="outline" class="input-assignment">
           <mat-label>Reported for:</mat-label>
           <input matInput class="userID" maxlength="7" />
@@ -36,7 +68,17 @@
             <mat-icon>reorder</mat-icon>
           </button>
         </mat-form-field>
+
+        <mat-form-field appearance="outline" class="input-assignment">
+          <input
+            matInput
+            class="user-nome"
+            disabled
+            value="Danilo Pezo Mendoza"
+          />
+        </mat-form-field>
       </div>
+
       <div class="group-assignment">
         <mat-form-field appearance="outline" class="input-assignment">
           <mat-label>Assigned group:</mat-label>
@@ -64,12 +106,12 @@
       appearance="outline"
       class="input-assignment description-area-texto"
     >
-      <textarea matInput></textarea>
+      <textarea matInput rows="5"></textarea>
     </mat-form-field>
   </mat-card-content>
 </mat-card>
 
-<mat-card class="formulario-description-container" appearance="outlined">
+<mat-card class="formulario-personal-data-container" appearance="outlined">
   <mat-card-header>
     <mat-card-subtitle>Personal Data</mat-card-subtitle>
   </mat-card-header>
@@ -78,7 +120,69 @@
       appearance="outline"
       class="input-assignment description-area-texto"
     >
-      <textarea matInput></textarea>
+      <textarea matInput rows="5"></textarea>
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>
+
+<div class="categorization-tags-container">
+  <mat-card class="formulario-categorization-container" appearance="outlined">
+    <mat-card-header>
+      <mat-card-subtitle>Categorization</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="input-categorization">
+        <mat-label>Reported CI:</mat-label>
+        <input matInput />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="input-categorization">
+        <mat-label>Affected CI:</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="formulario-tags-container" appearance="outlined">
+    <mat-card-header>
+      <mat-card-subtitle>Tags</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="input-tags">
+        <mat-label>Tag 1:</mat-label>
+        <input matInput />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="input-tags">
+        <mat-label>Tag 2:</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<mat-card class="formulario-solution-container" appearance="outlined">
+  <mat-card-header>
+    <mat-card-subtitle>Solution</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field
+      appearance="outline"
+      class="input-assignment description-area-texto"
+    >
+      <textarea matInput rows="5"></textarea>
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="formulario-solution-container" appearance="outlined">
+  <mat-card-header>
+    <mat-card-subtitle>Personal Data-Solution</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field
+      appearance="outline"
+      class="input-assignment description-area-texto"
+    >
+      <textarea matInput rows="5"></textarea>
     </mat-form-field>
   </mat-card-content>
 </mat-card>
