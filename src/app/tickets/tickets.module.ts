@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {
   MatTooltipModule,
   matTooltipAnimations,
@@ -21,12 +22,21 @@ import {
 import { AcoesTicketComponent } from './tickets/acoes-ticket/acoes-ticket.component';
 import { DetailsTicketComponent } from './tickets/details-ticket/details-ticket.component';
 import { AttachmentsTicketComponent } from './tickets/attachments-ticket/attachments-ticket.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [MenuComponent, ConteudoComponent, TicketsComponent, AcoesTicketComponent, DetailsTicketComponent, AttachmentsTicketComponent],
+  declarations: [
+    MenuComponent,
+    ConteudoComponent,
+    TicketsComponent,
+    AcoesTicketComponent,
+    DetailsTicketComponent,
+    AttachmentsTicketComponent,
+  ],
   imports: [
     CommonModule,
     TicketsRoutingModule,
+    ReactiveFormsModule,
     MatSidenavModule,
     MatListModule,
     MatExpansionModule,
@@ -37,6 +47,7 @@ import { AttachmentsTicketComponent } from './tickets/attachments-ticket/attachm
     MatButtonModule,
     MatTooltipModule,
     MatTabsModule,
+    MatAutocompleteModule,
   ],
 })
 export class TicketsModule {}
