@@ -83,8 +83,8 @@
         <form class="group-assignment-form">
           <mat-form-field appearance="outline" class="input-assignment">
             <mat-label>Assigned group:</mat-label>
-            <input matInput autoActiveFirstOption [matAutocomplete]="auto" />
-            <mat-autocomplete #auto>
+            <input matInput [matAutocomplete]="auto" />
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
               <mat-option
                 *ngFor="let grupo of groupsAssignament"
                 [value]="grupo"
@@ -140,11 +140,20 @@
     <mat-card-header>
       <mat-card-subtitle>Categorization</mat-card-subtitle>
     </mat-card-header>
+
     <mat-card-content>
-      <mat-form-field appearance="outline" class="input-categorization">
-        <mat-label>Reported CI:</mat-label>
-        <input matInput />
-      </mat-form-field>
+      <form class="input-reported-ci-form">
+        <mat-form-field appearance="outline" class="input-categorization">
+          <mat-label>Reported CI:</mat-label>
+          <input matInput [matAutocomplete]="autoCi" />
+          <mat-autocomplete autoActiveFirstOption #autoCi="matAutocomplete">
+            <mat-option *ngFor="let ci of reportedCIs" [value]="ci">{{
+              ci
+            }}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+
       <mat-form-field appearance="outline" class="input-categorization">
         <mat-label>Affected CI:</mat-label>
         <input matInput />
@@ -156,15 +165,31 @@
     <mat-card-header>
       <mat-card-subtitle>Tags</mat-card-subtitle>
     </mat-card-header>
+
     <mat-card-content>
-      <mat-form-field appearance="outline" class="input-tags">
-        <mat-label>Tag 1:</mat-label>
-        <input matInput />
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="input-tags">
-        <mat-label>Tag 2:</mat-label>
-        <input matInput />
-      </mat-form-field>
+      <form class="tag1-form">
+        <mat-form-field appearance="outline" class="input-tags">
+          <mat-label>Tag 1:</mat-label>
+          <input matInput [matAutocomplete]="tag1" />
+          <mat-autocomplete #tag1="matAutocomplete">
+            <mat-option *ngFor="let tag of tags1" [value]="tag">{{
+              tag
+            }}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+
+      <form class="tag1-form">
+        <mat-form-field appearance="outline" class="input-tags">
+          <mat-label>Tag 2:</mat-label>
+          <input matInput [matAutocomplete]="tag2" />
+          <mat-autocomplete #tag2="matAutocomplete">
+            <mat-option *ngFor="let tag of tags2" [value]="tag">{{
+              tag
+            }}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
     </mat-card-content>
   </mat-card>
 </div>
