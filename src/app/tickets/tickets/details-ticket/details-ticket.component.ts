@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './details-ticket.component.html',
   styleUrls: ['./details-ticket.component.scss'],
 })
-export class DetailsTicketComponent {}
+export class DetailsTicketComponent {
+  groupsAssignament: string[] = ['Grupo1', 'Grupo2', 'Grupo3'];
+}

@@ -22,7 +22,7 @@ import {
 import { AcoesTicketComponent } from './tickets/acoes-ticket/acoes-ticket.component';
 import { DetailsTicketComponent } from './tickets/details-ticket/details-ticket.component';
 import { AttachmentsTicketComponent } from './tickets/attachments-ticket/attachments-ticket.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -48,6 +48,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTooltipModule,
     MatTabsModule,
     MatAutocompleteModule,
+    FormsModule,
   ],
 })
 export class TicketsModule {}

@@ -80,10 +80,20 @@
       </div>
 
       <div class="group-assignment">
-        <mat-form-field appearance="outline" class="input-assignment">
-          <mat-label>Assigned group:</mat-label>
-          <input matInput />
-        </mat-form-field>
+        <form class="group-assignment-form">
+          <mat-form-field appearance="outline" class="input-assignment">
+            <mat-label>Assigned group:</mat-label>
+            <input matInput autoActiveFirstOption [matAutocomplete]="auto" />
+            <mat-autocomplete #auto>
+              <mat-option
+                *ngFor="let grupo of groupsAssignament"
+                [value]="grupo"
+                >{{ grupo }}</mat-option
+              >
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+
         <mat-form-field appearance="outline" class="input-assignment">
           <mat-label>Managed by:</mat-label>
           <input matInput disabled />
