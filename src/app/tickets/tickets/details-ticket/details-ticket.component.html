@@ -145,11 +145,20 @@
       <form class="input-reported-ci-form">
         <mat-form-field appearance="outline" class="input-categorization">
           <mat-label>Reported CI:</mat-label>
-          <input matInput [matAutocomplete]="autoCi" />
-          <mat-autocomplete autoActiveFirstOption #autoCi="matAutocomplete">
-            <mat-option *ngFor="let ci of reportedCIs" [value]="ci">{{
-              ci
-            }}</mat-option>
+          <input
+            matInput
+            type="text"
+            [matAutocomplete]="autoCi"
+            [formControl]="categoriaControl"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #autoCi="matAutocomplete"
+            [displayWith]="displayWithCI"
+          >
+            <mat-option *ngFor="let ci of reportedCIs | async" [value]="ci">
+              {{ ci.nome }}
+            </mat-option>
           </mat-autocomplete>
         </mat-form-field>
       </form>
