@@ -29,6 +29,7 @@ export class DetailsTicketComponent {
   constructor(private ticketDetailsService: TicketDetailsService) {}
 
   ngOnInit() {
+    this.categoriaAfetadaControl.disable();
     this.carregarCategorias();
     this.criarValueChangesCategoriaReportada();
     this.criarValueChangesCategoriaAfetada();
@@ -51,23 +52,31 @@ export class DetailsTicketComponent {
         this.listaCategoriasReportadas = this.ticketDetailsService.getCategoria(
           valorCategoriaReportada.nome
         );
-        this.listaTags = this.ticketDetailsService.getTag(
-          valorCategoriaReportada.id
-        );
+        if (this.categoriaAfetadaControl.value === null) {
+          this.listaTags = this.ticketDetailsService.getTag(
+            valorCategoriaReportada.id
+          );
+        }
       }
     });
   }
 
   criarValueChangesCategoriaAfetada() {
     this.categoriaAfetadaControl.valueChanges.subscribe(() => {
-      const valorCampo = this.categoriaAfetadaControl.value;
-      if (typeof valorCampo === 'string') {
-        this.listaCategoriasAfetadas =
-          this.ticketDetailsService.getCategoria(valorCampo);
-      } else if (typeof valorCampo === 'object') {
+      const valorCategoriaAfetada = this.categoriaAfetadaControl.value;
+      if (typeof valorCategoriaAfetada === 'string') {
         this.listaCategoriasAfetadas = this.ticketDetailsService.getCategoria(
-          valorCampo.nome
+          valorCategoriaAfetada
         );
+      } else if (typeof valorCategoriaAfetada === 'object') {
+        this.listaCategoriasAfetadas = this.ticketDetailsService.getCategoria(
+          valorCategoriaAfetada.nome
+        );
+        if (this.categoriaAfetadaControl.value != null) {
+          this.listaTags = this.ticketDetailsService.getTag(
+            valorCategoriaAfetada.id
+          );
+        }
       }
     });
   }
