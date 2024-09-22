@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 import {
-  CategoriaDto,
+  AtributoDto,
   TicketDetailsService,
 } from './../../services/ticket-details.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,9 +14,9 @@ import { Observable } from 'rxjs';
 export class DetailsTicketComponent {
   groupsAssignament: string[] = ['Grupo1', 'Grupo2', 'Grupo3'];
   categoriaReportadaControl = new FormControl();
-  listaCategoriasReportadas!: Observable<CategoriaDto[]>;
+  listaCategoriasReportadas!: Observable<AtributoDto[]>;
   categoriaAfetadaControl = new FormControl();
-  listaCategoriasAfetadas!: Observable<CategoriaDto[]>;
+  listaCategoriasAfetadas!: Observable<AtributoDto[]>;
   tags1: string[] = ['Alta', 'Baja', 'Error'];
   tags2: string[] = ['Acceso', 'Licencia', 'Certificados'];
 
@@ -61,5 +61,5 @@ export class DetailsTicketComponent {
     });
   }
 
-  displayWithCI = (ci: CategoriaDto) => ci?.nome || '';
+  displayWithCI = (ci: AtributoDto) => ci?.nome || '';
 }
