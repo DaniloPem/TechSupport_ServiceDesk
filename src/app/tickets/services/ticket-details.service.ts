@@ -15,6 +15,12 @@ export class TicketDetailsService {
 
   constructor(private httpClient: HttpClient) {}
 
+  getGrupoAssignado(categoriaId: number): Observable<AtributoDto[]> {
+    return this.httpClient.get<AtributoDto[]>(
+      `${this.API}/gruposAssignados/por-categoria/${categoriaId}`
+    );
+  }
+
   getCategoria(nomeCategoria: string): Observable<AtributoDto[]> {
     return this.httpClient.get<AtributoDto[]>(
       `${this.API}/categorias/por-nome?nome=${nomeCategoria}`
