@@ -12,7 +12,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./details-ticket.component.scss'],
 })
 export class DetailsTicketComponent {
-  groupsAssignament: string[] = ['Grupo1', 'Grupo2', 'Grupo3'];
+  grupoAssignadoControl = new FormControl();
+  listaGrouposAssignados!: Observable<AtributoDto[]>;
 
   categoriaReportadaControl = new FormControl();
   listaCategoriasReportadas!: Observable<AtributoDto[]>;
@@ -56,6 +57,10 @@ export class DetailsTicketComponent {
           this.listaTags = this.ticketDetailsService.getTag(
             valorCategoriaReportada.id
           );
+          this.listaGrouposAssignados =
+            this.ticketDetailsService.getGrupoAssignado(
+              valorCategoriaReportada.id
+            );
         }
       }
     });
@@ -76,6 +81,10 @@ export class DetailsTicketComponent {
           this.listaTags = this.ticketDetailsService.getTag(
             valorCategoriaAfetada.id
           );
+          this.listaGrouposAssignados =
+            this.ticketDetailsService.getGrupoAssignado(
+              valorCategoriaAfetada.id
+            );
         }
       }
     });

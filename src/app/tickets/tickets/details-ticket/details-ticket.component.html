@@ -83,12 +83,21 @@
         <form class="group-assignment-form">
           <mat-form-field appearance="outline" class="input-assignment">
             <mat-label>Assigned group:</mat-label>
-            <input matInput [matAutocomplete]="auto" />
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <input
+              matInput
+              type="text"
+              [matAutocomplete]="autoGrupoAssignado"
+              [formControl]="grupoAssignadoControl"
+            />
+            <mat-autocomplete
+              autoActiveFirstOption
+              #autoGrupoAssignado="matAutocomplete"
+              [displayWith]="displayWithCI"
+            >
               <mat-option
-                *ngFor="let grupo of groupsAssignament"
+                *ngFor="let grupo of listaGrouposAssignados | async"
                 [value]="grupo"
-                >{{ grupo }}</mat-option
+                >{{ grupo.nome }}</mat-option
               >
             </mat-autocomplete>
           </mat-form-field>
