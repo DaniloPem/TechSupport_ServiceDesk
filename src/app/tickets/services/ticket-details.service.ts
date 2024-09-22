@@ -26,4 +26,10 @@ export class TicketDetailsService {
       `${this.API}/tags/por-categoria/${idCategoria}`
     );
   }
+
+  getSubTag(idTag: number): Observable<AtributoDto[]> {
+    return this.httpClient.get<AtributoDto[]>(
+      `${this.API}/subtags/por-tag/${idTag}`
+    );
+  }
 }
