@@ -148,25 +148,45 @@
           <input
             matInput
             type="text"
-            [matAutocomplete]="autoCi"
-            [formControl]="categoriaControl"
+            [matAutocomplete]="autoReportedCi"
+            [formControl]="categoriaReportadaControl"
           />
           <mat-autocomplete
             autoActiveFirstOption
-            #autoCi="matAutocomplete"
+            #autoReportedCi="matAutocomplete"
             [displayWith]="displayWithCI"
           >
-            <mat-option *ngFor="let ci of reportedCIs | async" [value]="ci">
-              {{ ci.nome }}
+            <mat-option
+              *ngFor="let reportedCi of listaCategoriasReportadas | async"
+              [value]="reportedCi"
+            >
+              {{ reportedCi.nome }}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
       </form>
 
-      <mat-form-field appearance="outline" class="input-categorization">
-        <mat-label>Affected CI:</mat-label>
-        <input matInput />
-      </mat-form-field>
+      <form>
+        <mat-form-field appearance="outline" class="input-categorization">
+          <mat-label>Affected CI:</mat-label>
+          <input
+            matInput
+            [matAutocomplete]="autoAffectedCi"
+            [formControl]="categoriaAfetadaControl"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #autoAffectedCi="matAutocomplete"
+            [displayWith]="displayWithCI"
+            ><mat-option
+              *ngFor="let ci of listaCategoriasAfetadas | async"
+              [value]="ci"
+            >
+              {{ ci.nome }}</mat-option
+            >
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
     </mat-card-content>
   </mat-card>
 

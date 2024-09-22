@@ -13,8 +13,10 @@ import { Observable } from 'rxjs';
 })
 export class DetailsTicketComponent {
   groupsAssignament: string[] = ['Grupo1', 'Grupo2', 'Grupo3'];
-  categoriaControl = new FormControl();
-  reportedCIs!: Observable<CategoriaDto[]>;
+  categoriaReportadaControl = new FormControl();
+  listaCategoriasReportadas!: Observable<CategoriaDto[]>;
+  categoriaAfetadaControl = new FormControl();
+  listaCategoriasAfetadas!: Observable<CategoriaDto[]>;
   tags1: string[] = ['Alta', 'Baja', 'Error'];
   tags2: string[] = ['Acceso', 'Licencia', 'Certificados'];
 
@@ -22,20 +24,37 @@ export class DetailsTicketComponent {
 
   ngOnInit() {
     this.carregarCategorias();
-    this.criarValueChangesCategoria();
+    this.criarValueChangesCategoriaReportada();
+    this.criarValueChangesCategoriaAfetada();
   }
 
   carregarCategorias() {
-    this.reportedCIs = this.ticketDetailsService.getCategoria('');
+    this.listaCategoriasReportadas = this.ticketDetailsService.getCategoria('');
+    this.listaCategoriasAfetadas = this.ticketDetailsService.getCategoria('');
   }
 
-  criarValueChangesCategoria() {
-    this.categoriaControl.valueChanges.subscribe(() => {
-      const valorCampo = this.categoriaControl.value;
+  criarValueChangesCategoriaReportada() {
+    this.categoriaReportadaControl.valueChanges.subscribe(() => {
+      const valorCampo = this.categoriaReportadaControl.value;
       if (typeof valorCampo === 'string') {
-        this.reportedCIs = this.ticketDetailsService.getCategoria(valorCampo);
+        this.listaCategoriasReportadas =
+          this.ticketDetailsService.getCategoria(valorCampo);
       } else if (typeof valorCampo === 'object') {
-        this.reportedCIs = this.ticketDetailsService.getCategoria(
+        this.listaCategoriasReportadas = this.ticketDetailsService.getCategoria(
+          valorCampo.nome
+        );
+      }
+    });
+  }
+
+  criarValueChangesCategoriaAfetada() {
+    this.categoriaAfetadaControl.valueChanges.subscribe(() => {
+      const valorCampo = this.categoriaAfetadaControl.value;
+      if (typeof valorCampo === 'string') {
+        this.listaCategoriasAfetadas =
+          this.ticketDetailsService.getCategoria(valorCampo);
+      } else if (typeof valorCampo === 'object') {
+        this.listaCategoriasAfetadas = this.ticketDetailsService.getCategoria(
           valorCampo.nome
         );
       }
