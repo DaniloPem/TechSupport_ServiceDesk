@@ -171,6 +171,7 @@
           <mat-label>Affected CI:</mat-label>
           <input
             matInput
+            type="text"
             [matAutocomplete]="autoAffectedCi"
             [formControl]="categoriaAfetadaControl"
           />
@@ -199,11 +200,22 @@
       <form class="tag1-form">
         <mat-form-field appearance="outline" class="input-tags">
           <mat-label>Tag 1:</mat-label>
-          <input matInput [matAutocomplete]="tag1" />
-          <mat-autocomplete #tag1="matAutocomplete">
-            <mat-option *ngFor="let tag of tags1" [value]="tag">{{
-              tag
-            }}</mat-option>
+          <input
+            matInput
+            type="text"
+            [matAutocomplete]="tag1"
+            [formControl]="tag1Control"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #tag1="matAutocomplete"
+            [displayWith]="displayWithCI"
+          >
+            <mat-option
+              *ngFor="let tag1 of listaTags1 | async"
+              [value]="tag1"
+              >{{ tag1.nome }}</mat-option
+            >
           </mat-autocomplete>
         </mat-form-field>
       </form>
@@ -213,7 +225,7 @@
           <mat-label>Tag 2:</mat-label>
           <input matInput [matAutocomplete]="tag2" />
           <mat-autocomplete #tag2="matAutocomplete">
-            <mat-option *ngFor="let tag of tags2" [value]="tag">{{
+            <mat-option *ngFor="let tag of listaTags2 | async" [value]="tag">{{
               tag
             }}</mat-option>
           </mat-autocomplete>

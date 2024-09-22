@@ -13,12 +13,17 @@ import { Observable } from 'rxjs';
 })
 export class DetailsTicketComponent {
   groupsAssignament: string[] = ['Grupo1', 'Grupo2', 'Grupo3'];
+
   categoriaReportadaControl = new FormControl();
   listaCategoriasReportadas!: Observable<AtributoDto[]>;
+
   categoriaAfetadaControl = new FormControl();
   listaCategoriasAfetadas!: Observable<AtributoDto[]>;
-  tags1: string[] = ['Alta', 'Baja', 'Error'];
-  tags2: string[] = ['Acceso', 'Licencia', 'Certificados'];
+
+  tag1Control = new FormControl();
+  listaTags1!: Observable<AtributoDto[]>;
+
+  listaTags2!: Observable<AtributoDto[]>;
 
   constructor(private ticketDetailsService: TicketDetailsService) {}
 
@@ -43,6 +48,7 @@ export class DetailsTicketComponent {
         this.listaCategoriasReportadas = this.ticketDetailsService.getCategoria(
           valorCampo.nome
         );
+        this.listaTags1 = this.ticketDetailsService.getTag(valorCampo.id);
       }
     });
   }
