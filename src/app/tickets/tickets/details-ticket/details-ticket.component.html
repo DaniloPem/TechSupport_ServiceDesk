@@ -203,19 +203,17 @@
           <input
             matInput
             type="text"
-            [matAutocomplete]="tag1"
-            [formControl]="tag1Control"
+            [matAutocomplete]="tag"
+            [formControl]="tagControl"
           />
           <mat-autocomplete
             autoActiveFirstOption
-            #tag1="matAutocomplete"
+            #tag="matAutocomplete"
             [displayWith]="displayWithCI"
           >
-            <mat-option
-              *ngFor="let tag1 of listaTags1 | async"
-              [value]="tag1"
-              >{{ tag1.nome }}</mat-option
-            >
+            <mat-option *ngFor="let tag of listaTags | async" [value]="tag">{{
+              tag.nome
+            }}</mat-option>
           </mat-autocomplete>
         </mat-form-field>
       </form>
@@ -223,11 +221,22 @@
       <form class="tag1-form">
         <mat-form-field appearance="outline" class="input-tags">
           <mat-label>Tag 2:</mat-label>
-          <input matInput [matAutocomplete]="tag2" />
-          <mat-autocomplete #tag2="matAutocomplete">
-            <mat-option *ngFor="let tag of listaTags2 | async" [value]="tag">{{
-              tag
-            }}</mat-option>
+          <input
+            matInput
+            type="text"
+            [matAutocomplete]="subTag"
+            [formControl]="subTagControl"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #subTag="matAutocomplete"
+            [displayWith]="displayWithCI"
+          >
+            <mat-option
+              *ngFor="let subTag of listaSubTags | async"
+              [value]="subTag"
+              >{{ subTag.nome }}</mat-option
+            >
           </mat-autocomplete>
         </mat-form-field>
       </form>

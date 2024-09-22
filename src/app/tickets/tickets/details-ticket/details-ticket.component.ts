@@ -20,10 +20,11 @@ export class DetailsTicketComponent {
   categoriaAfetadaControl = new FormControl();
   listaCategoriasAfetadas!: Observable<AtributoDto[]>;
 
-  tag1Control = new FormControl();
-  listaTags1!: Observable<AtributoDto[]>;
+  tagControl = new FormControl();
+  listaTags!: Observable<AtributoDto[]>;
 
-  listaTags2!: Observable<AtributoDto[]>;
+  subTagControl = new FormControl();
+  listaSubTags!: Observable<AtributoDto[]>;
 
   constructor(private ticketDetailsService: TicketDetailsService) {}
 
@@ -31,6 +32,7 @@ export class DetailsTicketComponent {
     this.carregarCategorias();
     this.criarValueChangesCategoriaReportada();
     this.criarValueChangesCategoriaAfetada();
+    this.carregarSubTags();
   }
 
   carregarCategorias() {
@@ -40,15 +42,18 @@ export class DetailsTicketComponent {
 
   criarValueChangesCategoriaReportada() {
     this.categoriaReportadaControl.valueChanges.subscribe(() => {
-      const valorCampo = this.categoriaReportadaControl.value;
-      if (typeof valorCampo === 'string') {
-        this.listaCategoriasReportadas =
-          this.ticketDetailsService.getCategoria(valorCampo);
-      } else if (typeof valorCampo === 'object') {
+      const valorCategoriaReportada = this.categoriaReportadaControl.value;
+      if (typeof valorCategoriaReportada === 'string') {
         this.listaCategoriasReportadas = this.ticketDetailsService.getCategoria(
-          valorCampo.nome
+          valorCategoriaReportada
         );
-        this.listaTags1 = this.ticketDetailsService.getTag(valorCampo.id);
+      } else if (typeof valorCategoriaReportada === 'object') {
+        this.listaCategoriasReportadas = this.ticketDetailsService.getCategoria(
+          valorCategoriaReportada.nome
+        );
+        this.listaTags = this.ticketDetailsService.getTag(
+          valorCategoriaReportada.id
+        );
       }
     });
   }
@@ -64,6 +69,13 @@ export class DetailsTicketComponent {
           valorCampo.nome
         );
       }
+    });
+  }
+
+  carregarSubTags() {
+    this.tagControl.valueChanges.subscribe(() => {
+      const valorTag = this.tagControl.value;
+      this.listaSubTags = this.ticketDetailsService.getSubTag(valorTag.id);
     });
   }
 
