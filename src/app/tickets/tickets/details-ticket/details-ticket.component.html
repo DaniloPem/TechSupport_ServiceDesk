@@ -32,28 +32,40 @@
   <mat-card-content>
     <div appearance="outline" class="formulario-assignment">
       <div class="usuario-assignment">
-        <mat-form-field appearance="outline" class="input-assignment">
-          <mat-label>Reported by:</mat-label>
-          <input matInput class="userID" maxlength="7" />
-          <button mat-icon-button matSuffix matTooltip="Search user">
-            <mat-icon>search</mat-icon>
-          </button>
-          <button mat-icon-button matSuffix matTooltip="User data">
-            <mat-icon>perm_identity</mat-icon>
-          </button>
-          <button mat-icon-button matSuffix matTooltip="User history">
-            <mat-icon>reorder</mat-icon>
-          </button>
-        </mat-form-field>
+        <form>
+          <mat-form-field appearance="outline" class="input-assignment">
+            <mat-label>Reported by:</mat-label>
+            <input
+              matInput
+              [formControl]="usuarioReportadoControl"
+              class="userID"
+              maxlength="7"
+            />
+            <button
+              (click)="buscarUsuarios()"
+              mat-icon-button
+              matSuffix
+              matTooltip="Search user"
+            >
+              <mat-icon>search</mat-icon>
+            </button>
+            <button mat-icon-button matSuffix matTooltip="User data">
+              <mat-icon>perm_identity</mat-icon>
+            </button>
+            <button mat-icon-button matSuffix matTooltip="User history">
+              <mat-icon>reorder</mat-icon>
+            </button>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="input-assignment">
-          <input
-            matInput
-            class="user-nome"
-            disabled
-            value="Danilo Pezo Mendoza"
-          />
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="input-assignment">
+            <input
+              matInput
+              class="user-nome"
+              disabled
+              [value]="usuarioReportado?.nome"
+            />
+          </mat-form-field>
+        </form>
 
         <mat-form-field appearance="outline" class="input-assignment">
           <mat-label>Reported for:</mat-label>

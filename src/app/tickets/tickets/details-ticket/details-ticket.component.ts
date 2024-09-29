@@ -2,6 +2,7 @@ import { FormControl } from '@angular/forms';
 import {
   AtributoDto,
   TicketDetailsService,
+  UsuarioDto,
 } from './../../services/ticket-details.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -12,6 +13,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./details-ticket.component.scss'],
 })
 export class DetailsTicketComponent {
+  usuarioReportadoControl = new FormControl();
+  listaUsuariosReportados!: UsuarioDto[];
+  usuarioReportado: UsuarioDto | null = null;
+
   grupoAssignadoControl = new FormControl();
   listaGrouposAssignados!: Observable<AtributoDto[]>;
 
@@ -35,6 +40,17 @@ export class DetailsTicketComponent {
     this.criarValueChangesCategoriaReportada();
     this.criarValueChangesCategoriaAfetada();
     this.carregarSubTags();
+  }
+
+  buscarUsuarios() {
+    this.usuarioReportado = null;
+    const codigo = this.usuarioReportadoControl.value;
+    this.ticketDetailsService.getUsuario(codigo).subscribe((res) => {
+      this.listaUsuariosReportados = res;
+      if (this.listaUsuariosReportados.length === 1) {
+        this.usuarioReportado = this.listaUsuariosReportados[0];
+      }
+    });
   }
 
   carregarCategorias() {
