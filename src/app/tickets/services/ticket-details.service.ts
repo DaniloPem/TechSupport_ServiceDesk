@@ -7,6 +7,14 @@ export interface AtributoDto {
   nome: string;
 }
 
+export interface UsuarioDto {
+  id: number;
+  codigo: string;
+  nome: string;
+  email: string;
+  telefone: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -14,6 +22,12 @@ export class TicketDetailsService {
   private readonly API = 'http://localhost:8080/api';
 
   constructor(private httpClient: HttpClient) {}
+
+  getUsuario(codigo: string): Observable<UsuarioDto[]> {
+    return this.httpClient.get<UsuarioDto[]>(
+      `${this.API}/usuarios/por-codigo?codigo=${codigo}`
+    );
+  }
 
   getGrupoAssignado(categoriaId: number): Observable<AtributoDto[]> {
     return this.httpClient.get<AtributoDto[]>(
