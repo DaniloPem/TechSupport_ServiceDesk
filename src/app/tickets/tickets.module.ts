@@ -26,6 +26,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsuariosSemelhantesComponent } from './tickets/details-ticket/usuarios-semelhantes/usuarios-semelhantes.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MatTableModule } from '@angular/material/table';
     FormsModule,
     MatDialogModule,
     MatTableModule,
+    MatSnackBarModule,
   ],
 })
 export class TicketsModule {}

@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { UsuariosSemelhantesComponent } from './usuarios-semelhantes/usuarios-semelhantes.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-details-ticket',
@@ -36,7 +37,8 @@ export class DetailsTicketComponent {
 
   constructor(
     private ticketDetailsService: TicketDetailsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -56,6 +58,8 @@ export class DetailsTicketComponent {
         this.usuarioReportado = this.listaUsuariosReportados[0];
       } else if (this.listaUsuariosReportados.length > 1) {
         this.abrirListaDeUsuariosSemelhantes();
+      } else {
+        this.snackBar.open('User not found.', '', { duration: 1000 });
       }
     });
   }
