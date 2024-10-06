@@ -1,14 +1,14 @@
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 import {
   AtributoDto,
   TicketDetailsService,
   UsuarioDto,
 } from './../../services/ticket-details.service';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 import { UsuariosSemelhantesComponent } from './usuarios-semelhantes/usuarios-semelhantes.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-details-ticket',
