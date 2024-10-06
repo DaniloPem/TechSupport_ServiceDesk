@@ -23,6 +23,8 @@ import { AcoesTicketComponent } from './tickets/acoes-ticket/acoes-ticket.compon
 import { DetailsTicketComponent } from './tickets/details-ticket/details-ticket.component';
 import { AttachmentsTicketComponent } from './tickets/attachments-ticket/attachments-ticket.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { UsuariosSemelhantesComponent } from './tickets/details-ticket/usuarios-semelhantes/usuarios-semelhantes.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     AcoesTicketComponent,
     DetailsTicketComponent,
     AttachmentsTicketComponent,
+    UsuariosSemelhantesComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +52,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatTabsModule,
     MatAutocompleteModule,
     FormsModule,
+    MatDialogModule,
   ],
 })
 export class TicketsModule {}

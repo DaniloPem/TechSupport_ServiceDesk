@@ -6,6 +6,8 @@ import {
 } from './../../services/ticket-details.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { UsuariosSemelhantesComponent } from './usuarios-semelhantes/usuarios-semelhantes.component';
 
 @Component({
   selector: 'app-details-ticket',
@@ -32,7 +34,10 @@ export class DetailsTicketComponent {
   subTagControl = new FormControl();
   listaSubTags!: Observable<AtributoDto[]>;
 
-  constructor(private ticketDetailsService: TicketDetailsService) {}
+  constructor(
+    private ticketDetailsService: TicketDetailsService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.categoriaAfetadaControl.disable();
@@ -49,7 +54,17 @@ export class DetailsTicketComponent {
       this.listaUsuariosReportados = res;
       if (this.listaUsuariosReportados.length === 1) {
         this.usuarioReportado = this.listaUsuariosReportados[0];
+      } else if (this.listaUsuariosReportados.length > 1) {
+        this.abrirListaDeUsuariosSemelhantes();
       }
+    });
+  }
+
+  abrirListaDeUsuariosSemelhantes() {
+    this.dialog.open(UsuariosSemelhantesComponent, {
+      data: this.listaCategoriasReportadas,
+      width: '50%',
+      height: '50%',
     });
   }
 
