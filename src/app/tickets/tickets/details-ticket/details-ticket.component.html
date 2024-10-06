@@ -42,7 +42,7 @@
               maxlength="7"
             />
             <button
-              (click)="buscarUsuarios()"
+              (click)="buscarUsuariosReportados()"
               mat-icon-button
               matSuffix
               matTooltip="Search user"
@@ -69,8 +69,18 @@
 
         <mat-form-field appearance="outline" class="input-assignment">
           <mat-label>Reported for:</mat-label>
-          <input matInput class="userID" maxlength="7" />
-          <button mat-icon-button matSuffix matTooltip="Search user">
+          <input
+            matInput
+            [formControl]="usuarioAfetadoControl"
+            class="userID"
+            maxlength="7"
+          />
+          <button
+            (click)="buscarUsuariosAfetados()"
+            mat-icon-button
+            matSuffix
+            matTooltip="Search user"
+          >
             <mat-icon>search</mat-icon>
           </button>
           <button mat-icon-button matSuffix matTooltip="User data">
@@ -86,7 +96,7 @@
             matInput
             class="user-nome"
             disabled
-            value="Danilo Pezo Mendoza"
+            [value]="usuarioAfetado?.nome"
           />
         </mat-form-field>
       </div>

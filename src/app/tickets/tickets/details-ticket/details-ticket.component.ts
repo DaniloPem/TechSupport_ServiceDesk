@@ -20,6 +20,10 @@ export class DetailsTicketComponent {
   listaUsuariosReportados!: UsuarioDto[];
   usuarioReportado: UsuarioDto | null = null;
 
+  usuarioAfetadoControl = new FormControl();
+  listaUsuariosAfetados!: UsuarioDto[];
+  usuarioAfetado: UsuarioDto | null = null;
+
   grupoAssignadoControl = new FormControl();
   listaGrouposAssignados!: Observable<AtributoDto[]>;
 
@@ -49,7 +53,7 @@ export class DetailsTicketComponent {
     this.carregarSubTags();
   }
 
-  buscarUsuarios() {
+  buscarUsuariosReportados() {
     this.usuarioReportado = null;
     const codigo = this.usuarioReportadoControl.value;
     this.ticketDetailsService.getUsuario(codigo).subscribe((res) => {
@@ -57,14 +61,14 @@ export class DetailsTicketComponent {
       if (this.listaUsuariosReportados.length === 1) {
         this.usuarioReportado = this.listaUsuariosReportados[0];
       } else if (this.listaUsuariosReportados.length > 1) {
-        this.abrirListaDeUsuariosSemelhantes();
+        this.abrirListaDeUsuariosReportadosSemelhantes();
       } else {
         this.snackBar.open('User not found.', '', { duration: 1000 });
       }
     });
   }
 
-  abrirListaDeUsuariosSemelhantes() {
+  abrirListaDeUsuariosReportadosSemelhantes() {
     this.dialog
       .open(UsuariosSemelhantesComponent, {
         data: this.listaUsuariosReportados,
@@ -75,6 +79,35 @@ export class DetailsTicketComponent {
       .subscribe((result) => {
         this.usuarioReportadoControl.setValue(result.codigo);
         this.usuarioReportado = result;
+      });
+  }
+
+  buscarUsuariosAfetados() {
+    this.usuarioAfetado = null;
+    const codigo = this.usuarioAfetadoControl.value;
+    this.ticketDetailsService.getUsuario(codigo).subscribe((res) => {
+      this.listaUsuariosAfetados = res;
+      if (this.listaUsuariosAfetados.length === 1) {
+        this.usuarioAfetado = this.listaUsuariosAfetados[0];
+      } else if (this.listaUsuariosAfetados.length > 1) {
+        this.abrirListaDeUsuariosAfetadosSemelhantes();
+      } else {
+        this.snackBar.open('User not found.', '', { duration: 1000 });
+      }
+    });
+  }
+
+  abrirListaDeUsuariosAfetadosSemelhantes() {
+    this.dialog
+      .open(UsuariosSemelhantesComponent, {
+        data: this.listaUsuariosAfetados,
+        width: '50%',
+        height: '50%',
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        this.usuarioAfetadoControl.setValue(result.codigo);
+        this.usuarioAfetado = result;
       });
   }
 
