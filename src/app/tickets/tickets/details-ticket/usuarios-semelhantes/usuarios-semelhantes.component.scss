@@ -1,7 +1,16 @@
+.lista-usuarios-container {
+  height: calc(100% - 58px);
+  overflow: auto;
+}
+
 .mat-mdc-row .mat-mdc-cell {
   cursor: pointer;
 }
 
 tr.mat-mdc-row:hover {
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+.titulo {
+  margin: 0;
 }
