@@ -15,7 +15,7 @@ export class UsuariosSemelhantesComponent {
     @Inject(MAT_DIALOG_DATA) public listaUsuarios: any
   ) {}
 
-  close(usuario: UsuarioDto) {
+  pegarUsuario(usuario: UsuarioDto) {
     this.dialogRef.close(usuario);
   }
 }

@@ -61,11 +61,17 @@ export class DetailsTicketComponent {
   }
 
   abrirListaDeUsuariosSemelhantes() {
-    this.dialog.open(UsuariosSemelhantesComponent, {
-      data: this.listaUsuariosReportados,
-      width: '50%',
-      height: '50%',
-    });
+    this.dialog
+      .open(UsuariosSemelhantesComponent, {
+        data: this.listaUsuariosReportados,
+        width: '50%',
+        height: '50%',
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        this.usuarioReportadoControl.setValue(result.codigo);
+        this.usuarioReportado = result;
+      });
   }
 
   carregarCategorias() {
