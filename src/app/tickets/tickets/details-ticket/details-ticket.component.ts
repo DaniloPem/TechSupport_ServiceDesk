@@ -62,7 +62,7 @@ export class DetailsTicketComponent {
 
   abrirListaDeUsuariosSemelhantes() {
     this.dialog.open(UsuariosSemelhantesComponent, {
-      data: this.listaCategoriasReportadas,
+      data: this.listaUsuariosReportados,
       width: '50%',
       height: '50%',
     });

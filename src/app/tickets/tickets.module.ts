@@ -25,6 +25,7 @@ import { AttachmentsTicketComponent } from './tickets/attachments-ticket/attachm
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsuariosSemelhantesComponent } from './tickets/details-ticket/usuarios-semelhantes/usuarios-semelhantes.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatAutocompleteModule,
     FormsModule,
     MatDialogModule,
+    MatTableModule,
   ],
 })
 export class TicketsModule {}
