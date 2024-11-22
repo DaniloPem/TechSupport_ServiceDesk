@@ -2,23 +2,25 @@
   <mat-drawer #drawer mode="side" opened="true">
     <app-menu></app-menu>
   </mat-drawer>
-  <mat-drawer-content>
+  <mat-drawer-content class="conteudo">
     <mat-tab-group
       animationDuration="0ms"
       mat-stretch-tabs="false"
       mat-align-tabs="start"
     >
-      <mat-tab>
+      <mat-tab *ngFor="let tab of tabs; let index = index">
         <ng-template mat-tab-label>
-          <span>Ticket 1</span>
-          <button mat-icon-button matSuffix matTooltip="Close">
+          <span>{{ tab }}</span>
+          <button
+            mat-icon-button
+            matSuffix
+            matTooltip="Close"
+            (click)="fecharTab(index)"
+          >
             <mat-icon>close</mat-icon>
           </button>
         </ng-template>
         <app-tickets></app-tickets>
-      </mat-tab>
-      <mat-tab label="Ticket 2">
-        <div class="hello-world">HELLO WORLD</div>
       </mat-tab>
     </mat-tab-group>
   </mat-drawer-content>

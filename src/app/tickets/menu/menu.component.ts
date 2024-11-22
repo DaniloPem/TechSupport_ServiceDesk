@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { TicketService } from '../services/ticket.service';
 
 @Component({
   selector: 'app-menu',
@@ -20,4 +22,10 @@ export class MenuComponent {
       opcoes: ['Create Template', 'Template Queue', 'Search Template'],
     },
   ];
+
+  constructor(private ticketService: TicketService) {}
+
+  enviarAcaoDoMenu(valor: string) {
+    this.ticketService.emitAcaoDoMenu(valor);
+  }
 }

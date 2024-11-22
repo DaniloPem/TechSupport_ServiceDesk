@@ -3,8 +3,11 @@
     <mat-expansion-panel-header>
       <mat-panel-title> {{ opcaoMenu.nome }} </mat-panel-title>
     </mat-expansion-panel-header>
-    <mat-selection-list>
-      <mat-list-item *ngFor="let opcao of opcaoMenu.opcoes">
+    <mat-selection-list [multiple]="false">
+      <mat-list-item
+        *ngFor="let opcao of opcaoMenu.opcoes"
+        (click)="enviarAcaoDoMenu(opcao)"
+      >
         <span class="opcao">
           {{ opcao }}
         </span>
