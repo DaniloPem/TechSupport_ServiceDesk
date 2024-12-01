@@ -1,0 +1,4 @@
+enum TipoTicket {
+  REQUEST,
+  INCIDENT,
+}
