@@ -1,4 +1,4 @@
-enum StatusTicket {
+export enum StatusTicket {
   OPEN = 'Open',
   WORKING = 'Working',
   UPDATED = 'Updated',

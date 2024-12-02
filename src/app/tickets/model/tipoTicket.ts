@@ -1,4 +1,4 @@
-enum TipoTicket {
-  REQUEST,
-  INCIDENT,
+export enum TipoTicket {
+  REQUEST = 'REQUEST',
+  INCIDENT = 'INCIDENT',
 }

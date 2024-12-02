@@ -1,3 +1,4 @@
+import { TipoTicket } from '../model/tipoTicket';
 import { TicketService } from './../services/ticket.service';
 import { Component } from '@angular/core';
 
@@ -21,7 +22,11 @@ export class ConteudoComponent {
 
   createIncidentTicket(acaoMenu: string) {
     if (acaoMenu === 'Create Incident') {
-      this.tabs.push('Novo Ticket');
+      this.ticketService
+        .getNumeroDoTicketSegundoOTipo(TipoTicket.INCIDENT)
+        .subscribe((numeroTicket) => {
+          this.tabs.push(numeroTicket);
+        });
     }
   }
 }
