@@ -85,3 +85,7 @@ $fundo-ticket: #fafafa;
     }
   }
 }
+
+input:read-only {
+  cursor: default;
+}

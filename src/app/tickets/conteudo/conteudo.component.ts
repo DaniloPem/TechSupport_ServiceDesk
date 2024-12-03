@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 })
 export class ConteudoComponent {
   tabs: any[] = [];
+  pruebas: any[] = ['Ticket prueba'];
 
   constructor(private ticketService: TicketService) {
     this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
