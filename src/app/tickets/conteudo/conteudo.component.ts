@@ -14,6 +14,9 @@ export class ConteudoComponent {
     this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
       this.createIncidentTicket(acaoMenu);
     });
+    this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
+      this.createRequestTicket(acaoMenu);
+    });
   }
 
   fecharTab(index: number) {
@@ -24,6 +27,16 @@ export class ConteudoComponent {
     if (acaoMenu === 'Create Incident') {
       this.ticketService
         .getNumeroDoTicketSegundoOTipo(TipoTicket.INCIDENT)
+        .subscribe((numeroTicket) => {
+          this.tabs.push(numeroTicket);
+        });
+    }
+  }
+
+  createRequestTicket(acaoMenu: string) {
+    if (acaoMenu === 'Create Request') {
+      this.ticketService
+        .getNumeroDoTicketSegundoOTipo(TipoTicket.REQUEST)
         .subscribe((numeroTicket) => {
           this.tabs.push(numeroTicket);
         });
