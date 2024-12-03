@@ -39,11 +39,19 @@ export class DetailsTicketComponent {
   subTagControl = new FormControl();
   listaSubTags!: Observable<AtributoDto[]>;
 
+  horarioDaCriacaoDoTicketShow: boolean = false;
+
   constructor(
     private ticketDetailsService: TicketDetailsService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.ticketDetailsService.pegarAcaoMenuDoTicket$.subscribe(
+      (acaoMenuDoTicket) => {
+        this.salvarTicket(acaoMenuDoTicket);
+      }
+    );
+  }
 
   ngOnInit() {
     this.categoriaAfetadaControl.disable();
@@ -51,6 +59,12 @@ export class DetailsTicketComponent {
     this.criarValueChangesCategoriaReportada();
     this.criarValueChangesCategoriaAfetada();
     this.carregarSubTags();
+  }
+
+  salvarTicket(acaoMenuTicket: string) {
+    if (acaoMenuTicket === 'Save') {
+      this.horarioDaCriacaoDoTicketShow = true;
+    }
   }
 
   buscarUsuariosReportados() {

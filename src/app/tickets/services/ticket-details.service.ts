@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 export interface AtributoDto {
   id: number;
@@ -22,6 +22,12 @@ export class TicketDetailsService {
   private readonly API = 'http://localhost:8080/api';
 
   constructor(private httpClient: HttpClient) {}
+
+  pegarAcaoMenuDoTicket$ = new Subject<string>();
+
+  emitAcaoMenuDoTicket(acao: string) {
+    this.pegarAcaoMenuDoTicket$.next(acao);
+  }
 
   getUsuario(codigo: string): Observable<UsuarioDto[]> {
     return this.httpClient.get<UsuarioDto[]>(

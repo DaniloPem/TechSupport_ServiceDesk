@@ -1,7 +1,44 @@
 <div class="acoes-ticket">
-  <button class="acao" mat-raised-button>Refresh</button>
-  <button class="acao" mat-raised-button>Save & Exit</button>
-  <button class="acao" mat-raised-button>Save</button>
-  <button class="acao" mat-raised-button>Create Update</button>
-  <button class="acao" mat-raised-button>Resolve</button>
+  <button
+    class="acao"
+    mat-raised-button
+    (click)="enviarAcaoMenuDoTicket('Refresh')"
+  >
+    Refresh
+  </button>
+  <button
+    class="acao"
+    mat-raised-button
+    (click)="enviarAcaoMenuDoTicket('Take Over')"
+  >
+    Take Over
+  </button>
+  <button
+    class="acao"
+    mat-raised-button
+    (click)="enviarAcaoMenuDoTicket('Save')"
+  >
+    Save
+  </button>
+  <button
+    class="acao"
+    mat-raised-button
+    (click)="enviarAcaoMenuDoTicket('Refresh')"
+  >
+    Save & Exit
+  </button>
+  <button
+    class="acao"
+    mat-raised-button
+    (click)="enviarAcaoMenuDoTicket('Create Update')"
+  >
+    Create Update
+  </button>
+  <button
+    class="acao"
+    mat-raised-button
+    (click)="enviarAcaoMenuDoTicket('Resolve')"
+  >
+    Resolve
+  </button>
 </div>

@@ -14,6 +14,7 @@ $fundo-ticket: #fafafa;
 
   .status {
     color: black;
+    cursor: default;
   }
 }
 
@@ -84,8 +85,4 @@ $fundo-ticket: #fafafa;
       margin-right: 10px;
     }
   }
-}
-
-input:read-only {
-  cursor: default;
 }

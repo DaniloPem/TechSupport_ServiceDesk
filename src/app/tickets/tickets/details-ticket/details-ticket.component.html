@@ -9,12 +9,20 @@
     <input matInput value="Open" readonly class="status" />
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="formulario-ticketID">
+  <mat-form-field
+    *ngIf="horarioDaCriacaoDoTicketShow"
+    appearance="outline"
+    class="formulario-ticketID"
+  >
     <mat-label>Date:</mat-label>
     <input matInput value="24/06/2024" readonly="" class="status" />
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="formulario-ticketID">
+  <mat-form-field
+    *ngIf="horarioDaCriacaoDoTicketShow"
+    appearance="outline"
+    class="formulario-ticketID"
+  >
     <mat-label>Age:</mat-label>
     <input matInput value="00:00:05" readonly class="status" />
   </mat-form-field>
