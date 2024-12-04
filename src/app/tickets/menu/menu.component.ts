@@ -11,21 +11,33 @@ export class MenuComponent {
   menuOpcoes = [
     {
       nome: 'Incident Tickets',
-      opcoes: ['Create Incident', 'Incident Queue', 'Search Incident'],
+      opcoes: [
+        { nome: 'Create Incident', status: 'Open' },
+        { nome: 'Incident Queue' },
+        { nome: 'Search Incident' },
+      ],
     },
     {
       nome: 'Request Tickets',
-      opcoes: ['Create Request', 'Request Queue', 'Search Request'],
+      opcoes: [
+        { nome: 'Create Request', status: 'Open' },
+        { nome: 'Request Queue' },
+        { nome: 'Search Request' },
+      ],
     },
     {
       nome: 'Template Tickets',
-      opcoes: ['Create Template', 'Template Queue', 'Search Template'],
+      opcoes: [
+        { nome: 'Create Template' },
+        { nome: 'Template Queue' },
+        { nome: 'Search Template' },
+      ],
     },
   ];
 
   constructor(private ticketService: TicketService) {}
 
-  enviarAcaoDoMenu(valor: string) {
+  enviarAcaoDoMenu(valor: any) {
     this.ticketService.emitAcaoDoMenu(valor);
   }
 }

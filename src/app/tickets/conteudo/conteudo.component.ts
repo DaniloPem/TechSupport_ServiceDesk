@@ -1,31 +1,43 @@
+import { Subscription } from 'rxjs';
 import { TipoTicket } from '../model/tipoTicket';
 import { TicketService } from './../services/ticket.service';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 
 @Component({
   selector: 'app-conteudo',
   templateUrl: './conteudo.component.html',
   styleUrls: ['./conteudo.component.scss'],
 })
-export class ConteudoComponent {
+export class ConteudoComponent implements OnDestroy {
   tabs: any[] = [];
-  pruebas: any[] = ['Ticket prueba'];
+
+  subscriptions: Subscription[] = [];
 
   constructor(private ticketService: TicketService) {
-    this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
-      this.createIncidentTicket(acaoMenu);
-    });
-    this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
-      this.createRequestTicket(acaoMenu);
-    });
+    const subscriptionCreateIncident =
+      this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
+        this.createIncidentTicket(acaoMenu);
+      });
+    const subscriptionCreateRequest =
+      this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
+        this.createRequestTicket(acaoMenu);
+      });
+    this.subscriptions.push(
+      subscriptionCreateIncident,
+      subscriptionCreateRequest
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   fecharTab(index: number) {
     this.tabs.splice(index, 1);
   }
 
-  createIncidentTicket(acaoMenu: string) {
-    if (acaoMenu === 'Create Incident') {
+  createIncidentTicket(acaoMenu: any) {
+    if (acaoMenu.nome === 'Create Incident') {
       this.ticketService
         .getNumeroDoTicketSegundoOTipo(TipoTicket.INCIDENT)
         .subscribe((numeroTicket) => {
@@ -34,8 +46,8 @@ export class ConteudoComponent {
     }
   }
 
-  createRequestTicket(acaoMenu: string) {
-    if (acaoMenu === 'Create Request') {
+  createRequestTicket(acaoMenu: any) {
+    if (acaoMenu.nome === 'Create Request') {
       this.ticketService
         .getNumeroDoTicketSegundoOTipo(TipoTicket.REQUEST)
         .subscribe((numeroTicket) => {

@@ -12,7 +12,7 @@
 
   <mat-form-field appearance="outline" class="formulario-ticketID">
     <mat-label>Status:</mat-label>
-    <input matInput value="Open" readonly class="status" />
+    <input matInput [value]="statusDoTicket" readonly class="status" />
   </mat-form-field>
 
   <mat-form-field

@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { TicketService } from './../../services/ticket.service';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   AtributoDto,
   TicketDetailsService,
@@ -15,7 +16,7 @@ import { UsuariosSemelhantesComponent } from './usuarios-semelhantes/usuarios-se
   templateUrl: './details-ticket.component.html',
   styleUrls: ['./details-ticket.component.scss'],
 })
-export class DetailsTicketComponent {
+export class DetailsTicketComponent implements OnDestroy {
   usuarioReportadoControl = new FormControl();
   listaUsuariosReportados!: UsuarioDto[];
   usuarioReportado: UsuarioDto | null = null;
@@ -41,18 +42,29 @@ export class DetailsTicketComponent {
 
   @Input() numeroTicket!: string;
 
+  statusDoTicket!: string;
+
   horarioDaCriacaoDoTicketShow: boolean = false;
+
+  subscriptions: Subscription[] = [];
 
   constructor(
     private ticketDetailsService: TicketDetailsService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private ticketService: TicketService
   ) {
-    this.ticketDetailsService.pegarAcaoMenuDoTicket$.subscribe(
-      (acaoMenuDoTicket) => {
-        this.salvarTicket(acaoMenuDoTicket);
-      }
-    );
+    const subscriptionSalvarTciket =
+      this.ticketDetailsService.pegarAcaoMenuDoTicket$.subscribe(
+        (acaoMenuDoTicket) => {
+          this.salvarTicket(acaoMenuDoTicket);
+        }
+      );
+    const subscriptionStatusOpen =
+      this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
+        this.pegarStatusOpenDoTicketCriado(acaoMenu);
+      });
+    this.subscriptions.push(subscriptionSalvarTciket, subscriptionStatusOpen);
   }
 
   ngOnInit() {
@@ -61,6 +73,19 @@ export class DetailsTicketComponent {
     this.criarValueChangesCategoriaReportada();
     this.criarValueChangesCategoriaAfetada();
     this.carregarSubTags();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  pegarStatusOpenDoTicketCriado(acaoMenu: any) {
+    if (
+      acaoMenu.nome === 'Create Incident' ||
+      acaoMenu.nome === 'Create Request'
+    )
+      console.log(acaoMenu);
+    this.statusDoTicket = acaoMenu.status;
   }
 
   salvarTicket(acaoMenuTicket: string) {

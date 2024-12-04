@@ -8,15 +8,6 @@
       mat-stretch-tabs="false"
       mat-align-tabs="start"
     >
-      <!-- <mat-tab *ngFor="let prueba of pruebas; let index = index">
-        <ng-template mat-tab-label>
-          <span>{{ prueba }}</span>
-          <button mat-icon-button matSuffix matTooltip="Close">
-            <mat-icon>close</mat-icon>
-          </button>
-        </ng-template>
-        <app-tickets></app-tickets>
-      </mat-tab> -->
       <mat-tab *ngFor="let tab of tabs; let index = index">
         <ng-template mat-tab-label>
           <span>{{ tab }}</span>
