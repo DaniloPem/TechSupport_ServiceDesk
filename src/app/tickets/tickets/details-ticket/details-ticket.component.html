@@ -1,7 +1,13 @@
 <div class="id-status-ticket">
   <mat-form-field appearance="outline" class="formulario-ticketID">
     <mat-label>Ticket ID:</mat-label>
-    <input matInput maxlength="9" />
+    <input
+      matInput
+      maxlength="9"
+      readonly
+      class="status"
+      [value]="numeroTicket"
+    />
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="formulario-ticketID">

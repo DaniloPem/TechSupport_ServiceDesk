@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -38,6 +38,8 @@ export class DetailsTicketComponent {
 
   subTagControl = new FormControl();
   listaSubTags!: Observable<AtributoDto[]>;
+
+  @Input() numeroTicket!: string;
 
   horarioDaCriacaoDoTicketShow: boolean = false;
 
