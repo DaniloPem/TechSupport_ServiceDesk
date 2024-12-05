@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { Ticket } from '../model/ticket';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,9 @@ export class TicketService {
       `${this.API}/proximo-numero-ticket?tipoTicket=${tipoTicket}`,
       { responseType: 'text' }
     );
+  }
+
+  private createTicket(ticketRecord: Partial<Ticket>) {
+    return this.httpClient.post(this.API, ticketRecord);
   }
 }
