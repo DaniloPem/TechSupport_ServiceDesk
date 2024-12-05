@@ -24,6 +24,13 @@ export class TicketService {
     );
   }
 
+  saveTicket(ticketRecord: Partial<Ticket>) {
+    if (ticketRecord.id) {
+      return this.updateTicket(ticketRecord);
+    }
+    return this.createTicket(ticketRecord);
+  }
+
   private createTicket(ticketRecord: Partial<Ticket>) {
     return this.httpClient.post(this.API, ticketRecord);
   }
