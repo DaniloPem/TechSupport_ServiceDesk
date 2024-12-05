@@ -27,4 +27,8 @@ export class TicketService {
   private createTicket(ticketRecord: Partial<Ticket>) {
     return this.httpClient.post(this.API, ticketRecord);
   }
+
+  private updateTicket(ticketRecord: Partial<Ticket>) {
+    return this.httpClient.put(`${this.API}/${ticketRecord.id}`, ticketRecord);
+  }
 }
