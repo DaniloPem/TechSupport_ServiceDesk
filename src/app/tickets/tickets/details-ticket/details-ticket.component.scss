@@ -11,11 +11,6 @@ $fundo-ticket: #fafafa;
   @include formulario();
   width: 150px;
   margin-top: 1.5em;
-
-  .status {
-    color: black;
-    cursor: default;
-  }
 }
 
 .formulario-titulo {
@@ -85,4 +80,8 @@ $fundo-ticket: #fafafa;
       margin-right: 10px;
     }
   }
+}
+
+input:read-only {
+  cursor: default;
 }

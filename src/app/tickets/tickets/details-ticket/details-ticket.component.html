@@ -1,62 +1,95 @@
-<div class="id-status-ticket">
-  <mat-form-field appearance="outline" class="formulario-ticketID">
-    <mat-label>Ticket ID:</mat-label>
-    <input
-      matInput
-      maxlength="9"
-      readonly
-      class="status"
-      [value]="numeroTicket"
-    />
+<form *ngIf="formTicket !== undefined" [formGroup]="formTicket">
+  <div class="id-status-ticket">
+    <mat-form-field appearance="outline" class="formulario-ticketID">
+      <mat-label>Ticket ID:</mat-label>
+      <input
+        formControlName="numeroTicketSegundoTipo"
+        matInput
+        maxlength="9"
+        readonly
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="formulario-ticketID">
+      <mat-label>Status:</mat-label>
+      <input formControlName="status" matInput readonly />
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="salvarOTicketPelaPrimeiraVez"
+      appearance="outline"
+      class="formulario-ticketID"
+    >
+      <mat-label>Date:</mat-label>
+      <input formControlName="dataEHorarioDeCriacao" matInput readonly />
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="salvarOTicketPelaPrimeiraVez"
+      appearance="outline"
+      class="formulario-ticketID"
+    >
+      <mat-label>Age:</mat-label>
+      <input formControlName="dataEHorarioDeCriacao" matInput readonly />
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="formulario-titulo">
+    <mat-label>Title:</mat-label>
+    <input formControlName="titulo" matInput />
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="formulario-ticketID">
-    <mat-label>Status:</mat-label>
-    <input matInput [value]="statusDoTicket" readonly class="status" />
-  </mat-form-field>
-
-  <mat-form-field
-    *ngIf="horarioDaCriacaoDoTicketShow"
-    appearance="outline"
-    class="formulario-ticketID"
-  >
-    <mat-label>Date:</mat-label>
-    <input matInput value="24/06/2024" readonly="" class="status" />
-  </mat-form-field>
-
-  <mat-form-field
-    *ngIf="horarioDaCriacaoDoTicketShow"
-    appearance="outline"
-    class="formulario-ticketID"
-  >
-    <mat-label>Age:</mat-label>
-    <input matInput value="00:00:05" readonly class="status" />
-  </mat-form-field>
-</div>
-
-<mat-form-field appearance="outline" class="formulario-titulo">
-  <mat-label>Title:</mat-label>
-  <input matInput />
-</mat-form-field>
-
-<mat-card class="formulario-assignment-container" appearance="outlined">
-  <mat-card-header>
-    <mat-card-subtitle>Assignment</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <div appearance="outline" class="formulario-assignment">
-      <div class="usuario-assignment">
-        <form>
+  <mat-card class="formulario-assignment-container" appearance="outlined">
+    <mat-card-header>
+      <mat-card-subtitle>Assignment</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div appearance="outline" class="formulario-assignment">
+        <div class="usuario-assignment">
           <mat-form-field appearance="outline" class="input-assignment">
             <mat-label>Reported by:</mat-label>
             <input
               matInput
-              [formControl]="usuarioReportadoControl"
               class="userID"
               maxlength="7"
+              [formControl]="usuarioReportadoControl"
             />
             <button
+              mat-icon-button
+              matSuffix
+              matTooltip="Search user"
               (click)="buscarUsuariosReportados()"
+              *ngIf="salvarOTicketPelaPrimeiraVez === false"
+            >
+              <mat-icon>search</mat-icon>
+            </button>
+            <button mat-icon-button matSuffix matTooltip="User data">
+              <mat-icon>perm_identity</mat-icon>
+            </button>
+            <button mat-icon-button matSuffix matTooltip="User history">
+              <mat-icon>reorder</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="input-assignment">
+            <input
+              matInput
+              class="user-nome"
+              readonly
+              [value]="usuarioReportado?.nome"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="input-assignment">
+            <mat-label>Reported for:</mat-label>
+            <input
+              matInput
+              class="userID"
+              maxlength="7"
+              [formControl]="usuarioAfetadoControl"
+            />
+            <button
+              (click)="buscarUsuariosAfetados()"
               mat-icon-button
               matSuffix
               matTooltip="Search user"
@@ -75,55 +108,20 @@
             <input
               matInput
               class="user-nome"
-              disabled
-              [value]="usuarioReportado?.nome"
+              readonly
+              [value]="usuarioAfetado?.nome"
             />
           </mat-form-field>
-        </form>
+        </div>
 
-        <mat-form-field appearance="outline" class="input-assignment">
-          <mat-label>Reported for:</mat-label>
-          <input
-            matInput
-            [formControl]="usuarioAfetadoControl"
-            class="userID"
-            maxlength="7"
-          />
-          <button
-            (click)="buscarUsuariosAfetados()"
-            mat-icon-button
-            matSuffix
-            matTooltip="Search user"
-          >
-            <mat-icon>search</mat-icon>
-          </button>
-          <button mat-icon-button matSuffix matTooltip="User data">
-            <mat-icon>perm_identity</mat-icon>
-          </button>
-          <button mat-icon-button matSuffix matTooltip="User history">
-            <mat-icon>reorder</mat-icon>
-          </button>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="input-assignment">
-          <input
-            matInput
-            class="user-nome"
-            disabled
-            [value]="usuarioAfetado?.nome"
-          />
-        </mat-form-field>
-      </div>
-
-      <div class="group-assignment">
-        <form class="group-assignment-form">
+        <div class="group-assignment">
           <mat-form-field appearance="outline" class="input-assignment">
             <mat-label>Assigned group:</mat-label>
             <input
               matInput
               type="text"
-              [matAutocomplete]="autoGrupoAssignado"
               [formControl]="grupoAssignadoControl"
+              [matAutocomplete]="autoGrupoAssignado"
             />
             <mat-autocomplete
               autoActiveFirstOption
@@ -137,64 +135,62 @@
               >
             </mat-autocomplete>
           </mat-form-field>
-        </form>
 
-        <mat-form-field appearance="outline" class="input-assignment">
-          <mat-label>Managed by:</mat-label>
-          <input matInput disabled />
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="input-assignment">
-          <mat-label>Wait on External:</mat-label>
-          <input matInput />
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="input-assignment">
+            <mat-label>Managed by:</mat-label>
+            <input matInput disabled />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="input-assignment">
+            <mat-label>Wait on External:</mat-label>
+            <input matInput />
+          </mat-form-field>
+        </div>
       </div>
-    </div>
-  </mat-card-content>
-</mat-card>
+    </mat-card-content>
+  </mat-card>
 
-<mat-card class="formulario-description-container" appearance="outlined">
-  <mat-card-header>
-    <mat-card-subtitle>Description</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-form-field
-      appearance="outline"
-      class="input-assignment description-area-texto"
-    >
-      <textarea matInput rows="5"></textarea>
-    </mat-form-field>
-  </mat-card-content>
-</mat-card>
-
-<mat-card class="formulario-personal-data-container" appearance="outlined">
-  <mat-card-header>
-    <mat-card-subtitle>Personal Data</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-form-field
-      appearance="outline"
-      class="input-assignment description-area-texto"
-    >
-      <textarea matInput rows="5"></textarea>
-    </mat-form-field>
-  </mat-card-content>
-</mat-card>
-
-<div class="categorization-tags-container">
-  <mat-card class="formulario-categorization-container" appearance="outlined">
+  <mat-card class="formulario-description-container" appearance="outlined">
     <mat-card-header>
-      <mat-card-subtitle>Categorization</mat-card-subtitle>
+      <mat-card-subtitle>Description</mat-card-subtitle>
     </mat-card-header>
-
     <mat-card-content>
-      <form class="input-reported-ci-form">
+      <mat-form-field
+        appearance="outline"
+        class="input-assignment description-area-texto"
+      >
+        <textarea matInput formControlName="descricao" rows="5"></textarea>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="formulario-personal-data-container" appearance="outlined">
+    <mat-card-header>
+      <mat-card-subtitle>Personal Data</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field
+        appearance="outline"
+        class="input-assignment description-area-texto"
+      >
+        <textarea matInput formControlName="dadosPessoais" rows="5"></textarea>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="categorization-tags-container">
+    <mat-card class="formulario-categorization-container" appearance="outlined">
+      <mat-card-header>
+        <mat-card-subtitle>Categorization</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
         <mat-form-field appearance="outline" class="input-categorization">
           <mat-label>Reported CI:</mat-label>
           <input
             matInput
             type="text"
-            [matAutocomplete]="autoReportedCi"
             [formControl]="categoriaReportadaControl"
+            [matAutocomplete]="autoReportedCi"
           />
           <mat-autocomplete
             autoActiveFirstOption
@@ -209,16 +205,14 @@
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
-      </form>
 
-      <form>
         <mat-form-field appearance="outline" class="input-categorization">
           <mat-label>Affected CI:</mat-label>
           <input
             matInput
             type="text"
-            [matAutocomplete]="autoAffectedCi"
             [formControl]="categoriaAfetadaControl"
+            [matAutocomplete]="autoAffectedCi"
           />
           <mat-autocomplete
             autoActiveFirstOption
@@ -232,24 +226,22 @@
             >
           </mat-autocomplete>
         </mat-form-field>
-      </form>
-    </mat-card-content>
-  </mat-card>
+      </mat-card-content>
+    </mat-card>
 
-  <mat-card class="formulario-tags-container" appearance="outlined">
-    <mat-card-header>
-      <mat-card-subtitle>Tags</mat-card-subtitle>
-    </mat-card-header>
+    <mat-card class="formulario-tags-container" appearance="outlined">
+      <mat-card-header>
+        <mat-card-subtitle>Tags</mat-card-subtitle>
+      </mat-card-header>
 
-    <mat-card-content>
-      <form class="tag1-form">
+      <mat-card-content>
         <mat-form-field appearance="outline" class="input-tags">
           <mat-label>Tag 1:</mat-label>
           <input
             matInput
             type="text"
-            [matAutocomplete]="tag"
             [formControl]="tagControl"
+            [matAutocomplete]="tag"
           />
           <mat-autocomplete
             autoActiveFirstOption
@@ -261,16 +253,14 @@
             }}</mat-option>
           </mat-autocomplete>
         </mat-form-field>
-      </form>
 
-      <form class="tag1-form">
         <mat-form-field appearance="outline" class="input-tags">
           <mat-label>Tag 2:</mat-label>
           <input
             matInput
             type="text"
-            [matAutocomplete]="subTag"
             [formControl]="subTagControl"
+            [matAutocomplete]="subTag"
           />
           <mat-autocomplete
             autoActiveFirstOption
@@ -284,35 +274,39 @@
             >
           </mat-autocomplete>
         </mat-form-field>
-      </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <mat-card class="formulario-solution-container" appearance="outlined">
+    <mat-card-header>
+      <mat-card-subtitle>Solution</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field
+        appearance="outline"
+        class="input-assignment description-area-texto"
+      >
+        <textarea matInput formControlName="solucao" rows="5"></textarea>
+      </mat-form-field>
     </mat-card-content>
   </mat-card>
-</div>
 
-<mat-card class="formulario-solution-container" appearance="outlined">
-  <mat-card-header>
-    <mat-card-subtitle>Solution</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-form-field
-      appearance="outline"
-      class="input-assignment description-area-texto"
-    >
-      <textarea matInput rows="5"></textarea>
-    </mat-form-field>
-  </mat-card-content>
-</mat-card>
-
-<mat-card class="formulario-solution-container" appearance="outlined">
-  <mat-card-header>
-    <mat-card-subtitle>Personal Data-Solution</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-form-field
-      appearance="outline"
-      class="input-assignment description-area-texto"
-    >
-      <textarea matInput rows="5"></textarea>
-    </mat-form-field>
-  </mat-card-content>
-</mat-card>
+  <mat-card class="formulario-solution-container" appearance="outlined">
+    <mat-card-header>
+      <mat-card-subtitle>Personal Data-Solution</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field
+        appearance="outline"
+        class="input-assignment description-area-texto"
+      >
+        <textarea
+          matInput
+          formArrayName="solucaoDadosPessoais"
+          rows="5"
+        ></textarea>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+</form>

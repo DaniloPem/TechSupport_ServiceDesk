@@ -1,20 +1,20 @@
 export interface Ticket {
-  id: string;
+  id: number;
   status: string;
   dataEHorarioDeCriacao: string;
   tipo: string;
   numeroTicketSegundoTipo: string;
   titulo: string;
-  reportadoPor: string;
-  reportadoPara: string;
-  grupoAssignado: string;
+  reportadoPorId: number;
+  reportadoParaId: number;
+  grupoAssignadoId: number;
   gerenciadoPor: string;
   descricao: string;
   dadosPessoais: string;
-  categoriaReportada: string;
-  categoriaAfetada: string;
-  tag: string;
-  subtag: string;
+  categoriaReportadaId: number;
+  categoriaAfetadaId: number;
+  tagId: number;
+  subtagId: number;
   solucao: string;
   solucaoDadosPessoais: string;
 }

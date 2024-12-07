@@ -1,6 +1,11 @@
 import { TicketService } from './../../services/ticket.service';
 import { Component, Input, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
@@ -10,6 +15,7 @@ import {
   UsuarioDto,
 } from './../../services/ticket-details.service';
 import { UsuariosSemelhantesComponent } from './usuarios-semelhantes/usuarios-semelhantes.component';
+import { TipoTicket } from '../../model/tipoTicket';
 
 @Component({
   selector: 'app-details-ticket',
@@ -17,6 +23,16 @@ import { UsuariosSemelhantesComponent } from './usuarios-semelhantes/usuarios-se
   styleUrls: ['./details-ticket.component.scss'],
 })
 export class DetailsTicketComponent implements OnDestroy {
+  @Input() numeroTicket!: string;
+
+  tipoTicket!: string;
+
+  statusDoTicket!: string;
+
+  salvarOTicketPelaPrimeiraVez: boolean = false;
+
+  formTicket: FormGroup | undefined;
+
   usuarioReportadoControl = new FormControl();
   listaUsuariosReportados!: UsuarioDto[];
   usuarioReportado: UsuarioDto | null = null;
@@ -40,15 +56,10 @@ export class DetailsTicketComponent implements OnDestroy {
   subTagControl = new FormControl();
   listaSubTags!: Observable<AtributoDto[]>;
 
-  @Input() numeroTicket!: string;
-
-  statusDoTicket!: string;
-
-  horarioDaCriacaoDoTicketShow: boolean = false;
-
   subscriptions: Subscription[] = [];
 
   constructor(
+    private formBuilder: FormBuilder,
     private ticketDetailsService: TicketDetailsService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -65,14 +76,40 @@ export class DetailsTicketComponent implements OnDestroy {
         this.pegarStatusOpenDoTicketCriado(acaoMenu);
       });
     this.subscriptions.push(subscriptionSalvarTciket, subscriptionStatusOpen);
+    this.formTicket;
   }
 
   ngOnInit() {
-    this.categoriaAfetadaControl.disable();
+    if (this.salvarOTicketPelaPrimeiraVez === false) {
+      this.categoriaAfetadaControl.disable();
+    }
     this.carregarCategorias();
     this.criarValueChangesCategoriaReportada();
     this.criarValueChangesCategoriaAfetada();
     this.carregarSubTags();
+    this.pegarIdSubTag();
+    this.pegarIdgrupoAssignado();
+    this.formTicket = this.formBuilder.group({
+      id: [null],
+      status: [this.statusDoTicket],
+      dataEHorarioDeCriacao: [null],
+      tipo: [this.tipoTicket],
+      numeroTicketSegundoTipo: [this.numeroTicket],
+      titulo: [null, Validators.required],
+      reportadoPorId: [null, Validators.required],
+      reportadoParaId: [null],
+      grupoAssignadoId: [null, Validators.required],
+      gerenciadoPor: [null],
+      descricao: [null, Validators.required],
+      dadosPessoais: [null, Validators.required],
+      categoriaReportadaId: [null, Validators.required],
+      categoriaAfetadaId: [null],
+      tagId: [null],
+      subtagId: [null],
+      solucao: [null],
+      solucaoDadosPessoais: [null],
+    });
+    console.log(this.formTicket);
   }
 
   ngOnDestroy(): void {
@@ -84,13 +121,27 @@ export class DetailsTicketComponent implements OnDestroy {
       acaoMenu.nome === 'Create Incident' ||
       acaoMenu.nome === 'Create Request'
     )
-      console.log(acaoMenu);
-    this.statusDoTicket = acaoMenu.status;
+      this.statusDoTicket = acaoMenu.status;
+  }
+
+  pegarTipoDoTicketCriado(acaoMenu: any) {
+    if (acaoMenu.nome === 'Create Incident') {
+      this.tipoTicket = TipoTicket.INCIDENT;
+    } else if (acaoMenu.nome === 'Create Request') {
+      this.tipoTicket = TipoTicket.REQUEST;
+    }
   }
 
   salvarTicket(acaoMenuTicket: string) {
     if (acaoMenuTicket === 'Save') {
-      this.horarioDaCriacaoDoTicketShow = true;
+      console.log(this.formTicket?.value);
+      this.ticketService.saveTicket(this.formTicket?.value).subscribe({
+        next: () => {
+          this.ticketSalvoComSucesso();
+          this.salvarOTicketPelaPrimeiraVez = true;
+        },
+        error: () => this.erroAoSalvarTicket(),
+      });
     }
   }
 
@@ -101,8 +152,29 @@ export class DetailsTicketComponent implements OnDestroy {
       this.listaUsuariosReportados = res;
       if (this.listaUsuariosReportados.length === 1) {
         this.usuarioReportado = this.listaUsuariosReportados[0];
+        this.formTicket
+          ?.get('reportadoPorId')
+          ?.setValue(this.usuarioReportado.id);
       } else if (this.listaUsuariosReportados.length > 1) {
         this.abrirListaDeUsuariosReportadosSemelhantes();
+      } else {
+        this.snackBar.open('User not found.', '', { duration: 1000 });
+      }
+    });
+  }
+
+  buscarUsuariosAfetados() {
+    this.usuarioAfetado = null;
+    const codigo = this.usuarioAfetadoControl.value;
+    this.ticketDetailsService.getUsuario(codigo).subscribe((res) => {
+      this.listaUsuariosAfetados = res;
+      if (this.listaUsuariosAfetados.length === 1) {
+        this.usuarioAfetado = this.listaUsuariosAfetados[0];
+        this.formTicket
+          ?.get('reportadoParaId')
+          ?.setValue(this.usuarioAfetado.id);
+      } else if (this.listaUsuariosAfetados.length > 1) {
+        this.abrirListaDeUsuariosAfetadosSemelhantes();
       } else {
         this.snackBar.open('User not found.', '', { duration: 1000 });
       }
@@ -120,22 +192,10 @@ export class DetailsTicketComponent implements OnDestroy {
       .subscribe((result) => {
         this.usuarioReportadoControl.setValue(result.codigo);
         this.usuarioReportado = result;
+        this.formTicket
+          ?.get('reportadoPorId')
+          ?.setValue(this.usuarioReportado?.id);
       });
-  }
-
-  buscarUsuariosAfetados() {
-    this.usuarioAfetado = null;
-    const codigo = this.usuarioAfetadoControl.value;
-    this.ticketDetailsService.getUsuario(codigo).subscribe((res) => {
-      this.listaUsuariosAfetados = res;
-      if (this.listaUsuariosAfetados.length === 1) {
-        this.usuarioAfetado = this.listaUsuariosAfetados[0];
-      } else if (this.listaUsuariosAfetados.length > 1) {
-        this.abrirListaDeUsuariosAfetadosSemelhantes();
-      } else {
-        this.snackBar.open('User not found.', '', { duration: 1000 });
-      }
-    });
   }
 
   abrirListaDeUsuariosAfetadosSemelhantes() {
@@ -149,6 +209,9 @@ export class DetailsTicketComponent implements OnDestroy {
       .subscribe((result) => {
         this.usuarioAfetadoControl.setValue(result.codigo);
         this.usuarioAfetado = result;
+        this.formTicket
+          ?.get('reportadoParaId')
+          ?.setValue(this.usuarioAfetado?.id);
       });
   }
 
@@ -159,23 +222,27 @@ export class DetailsTicketComponent implements OnDestroy {
 
   criarValueChangesCategoriaReportada() {
     this.categoriaReportadaControl.valueChanges.subscribe(() => {
-      const valorCategoriaReportada = this.categoriaReportadaControl.value;
-      if (typeof valorCategoriaReportada === 'string') {
+      const categoriaReportada = this.categoriaReportadaControl.value;
+      if (typeof categoriaReportada === 'string') {
+        this.listaCategoriasReportadas =
+          this.ticketDetailsService.getCategoria(categoriaReportada);
+      } else if (typeof categoriaReportada === 'object') {
         this.listaCategoriasReportadas = this.ticketDetailsService.getCategoria(
-          valorCategoriaReportada
-        );
-      } else if (typeof valorCategoriaReportada === 'object') {
-        this.listaCategoriasReportadas = this.ticketDetailsService.getCategoria(
-          valorCategoriaReportada.nome
+          categoriaReportada.nome
         );
         if (this.categoriaAfetadaControl.value === null) {
-          this.listaTags = this.ticketDetailsService.getTag(
-            valorCategoriaReportada.id
-          );
-          this.listaGrouposAssignados =
-            this.ticketDetailsService.getGrupoAssignado(
-              valorCategoriaReportada.id
+          this.formTicket
+            ?.get('categoriaReportadaId')
+            ?.setValue(categoriaReportada.id);
+          if (this.salvarOTicketPelaPrimeiraVez === false) {
+            this.listaTags = this.ticketDetailsService.getTag(
+              categoriaReportada.id
             );
+            this.listaGrouposAssignados =
+              this.ticketDetailsService.getGrupoAssignado(
+                categoriaReportada.id
+              );
+          }
         }
       }
     });
@@ -183,23 +250,25 @@ export class DetailsTicketComponent implements OnDestroy {
 
   criarValueChangesCategoriaAfetada() {
     this.categoriaAfetadaControl.valueChanges.subscribe(() => {
-      const valorCategoriaAfetada = this.categoriaAfetadaControl.value;
-      if (typeof valorCategoriaAfetada === 'string') {
+      const categoriaAfetada = this.categoriaAfetadaControl.value;
+      if (typeof categoriaAfetada === 'string') {
+        this.listaCategoriasAfetadas =
+          this.ticketDetailsService.getCategoria(categoriaAfetada);
+      } else if (typeof categoriaAfetada === 'object') {
         this.listaCategoriasAfetadas = this.ticketDetailsService.getCategoria(
-          valorCategoriaAfetada
-        );
-      } else if (typeof valorCategoriaAfetada === 'object') {
-        this.listaCategoriasAfetadas = this.ticketDetailsService.getCategoria(
-          valorCategoriaAfetada.nome
+          categoriaAfetada.nome
         );
         if (this.categoriaAfetadaControl.value != null) {
-          this.listaTags = this.ticketDetailsService.getTag(
-            valorCategoriaAfetada.id
-          );
-          this.listaGrouposAssignados =
-            this.ticketDetailsService.getGrupoAssignado(
-              valorCategoriaAfetada.id
-            );
+          this.formTicket
+            ?.get('categoriaAfetadaId')
+            ?.setValue(categoriaAfetada.id);
+          // this.listaTags = this.ticketDetailsService.getTag(
+          //   categoriaAfetada.id
+          // );
+          // this.listaGrouposAssignados =
+          //   this.ticketDetailsService.getGrupoAssignado(
+          //     categoriaAfetada.id
+          //   );
         }
       }
     });
@@ -207,10 +276,33 @@ export class DetailsTicketComponent implements OnDestroy {
 
   carregarSubTags() {
     this.tagControl.valueChanges.subscribe(() => {
-      const valorTag = this.tagControl.value;
-      this.listaSubTags = this.ticketDetailsService.getSubTag(valorTag.id);
+      const tag = this.tagControl.value;
+      this.formTicket?.get('tagId')?.setValue(tag.id);
+      this.listaSubTags = this.ticketDetailsService.getSubTag(tag.id);
+    });
+  }
+
+  pegarIdSubTag() {
+    this.subTagControl.valueChanges.subscribe(() => {
+      const subTag = this.subTagControl.value;
+      this.formTicket?.get('subtagId')?.setValue(subTag.id);
+    });
+  }
+
+  pegarIdgrupoAssignado() {
+    this.grupoAssignadoControl.valueChanges.subscribe(() => {
+      const grupoAssignado = this.grupoAssignadoControl.value;
+      this.formTicket?.get('grupoAssignadoId')?.setValue(grupoAssignado.id);
     });
   }
 
   displayWithCI = (ci: AtributoDto) => ci?.nome || '';
+
+  private ticketSalvoComSucesso() {
+    this.snackBar.open('Ticket salvo com sucesso.', '', { duration: 2000 });
+  }
+
+  private erroAoSalvarTicket() {
+    this.snackBar.open('Erro ao salvar ticket.', '', { duration: 2000 });
+  }
 }
