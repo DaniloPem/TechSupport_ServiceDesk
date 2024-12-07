@@ -24,6 +24,10 @@ export class TicketService {
     );
   }
 
+  getTicketById(id: number) {
+    return this.httpClient.get(`${this.API}/${id}`);
+  }
+
   saveTicket(ticketRecord: Partial<Ticket>) {
     if (ticketRecord.id) {
       return this.updateTicket(ticketRecord);
