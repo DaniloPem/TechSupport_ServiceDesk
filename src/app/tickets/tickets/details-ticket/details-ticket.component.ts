@@ -16,6 +16,7 @@ import {
 } from './../../services/ticket-details.service';
 import { UsuariosSemelhantesComponent } from './usuarios-semelhantes/usuarios-semelhantes.component';
 import { TipoTicket } from '../../model/tipoTicket';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-details-ticket',
@@ -23,11 +24,19 @@ import { TipoTicket } from '../../model/tipoTicket';
   styleUrls: ['./details-ticket.component.scss'],
 })
 export class DetailsTicketComponent implements OnDestroy {
+  ticketId!: string;
+
   @Input() numeroTicket!: string;
 
   tipoTicket!: string;
 
   statusDoTicket!: string;
+
+  dataEHorarioDeCriacaoDoTicket!: string;
+
+  dataDeCriacao!: string;
+
+  ageTicket!: string;
 
   salvarOTicketPelaPrimeiraVez: boolean = false;
 
@@ -63,7 +72,8 @@ export class DetailsTicketComponent implements OnDestroy {
     private ticketDetailsService: TicketDetailsService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private activedRoute: ActivatedRoute
   ) {
     const subscriptionSalvarTciket =
       this.ticketDetailsService.pegarAcaoMenuDoTicket$.subscribe(
@@ -81,6 +91,9 @@ export class DetailsTicketComponent implements OnDestroy {
   }
 
   ngOnInit() {
+    this.activedRoute.params.subscribe(() => {
+      this.ticketId = this.activedRoute.snapshot.paramMap.get('id') as string;
+    });
     if (this.salvarOTicketPelaPrimeiraVez === false) {
       this.categoriaAfetadaControl.disable();
     }
@@ -93,7 +106,7 @@ export class DetailsTicketComponent implements OnDestroy {
     this.formTicket = this.formBuilder.group({
       id: [null],
       status: [this.statusDoTicket],
-      dataEHorarioDeCriacao: [null],
+      dataEHorarioDeCriacao: [this.dataEHorarioDeCriacaoDoTicket],
       tipo: [this.tipoTicket],
       numeroTicketSegundoTipo: [this.numeroTicket],
       titulo: [null, Validators.required],
@@ -137,7 +150,17 @@ export class DetailsTicketComponent implements OnDestroy {
     if (acaoMenuTicket === 'Save') {
       console.log(this.formTicket?.value);
       this.ticketService.saveTicket(this.formTicket?.value).subscribe({
-        next: () => {
+        next: (ticketId) => {
+          this.ticketService.getTicketById(ticketId).subscribe((ticket) => {
+            this.dataEHorarioDeCriacaoDoTicket = ticket.dataEHorarioDeCriacao;
+            this.dataDeCriacao = this.formatarData(
+              this.dataEHorarioDeCriacaoDoTicket
+            );
+            this.ageTicket = this.pegarAgeDoTicket(
+              this.dataEHorarioDeCriacaoDoTicket
+            );
+            this.statusDoTicket = ticket.status;
+          });
           this.ticketSalvoComSucesso();
           this.salvarOTicketPelaPrimeiraVez = true;
         },
@@ -305,5 +328,22 @@ export class DetailsTicketComponent implements OnDestroy {
 
   private erroAoSalvarTicket() {
     this.snackBar.open('Erro ao salvar ticket.', '', { duration: 2000 });
+  }
+
+  private formatarData(dataBancoDeDados: string) {
+    const data = new Date(dataBancoDeDados);
+    return data.toLocaleDateString();
+  }
+
+  private pegarAgeDoTicket(dataBancoDeDados: string) {
+    const data = new Date(dataBancoDeDados);
+    const agora = new Date();
+    const diferencaEmMilisegundos = agora.getTime() - data.getTime();
+    const segundos = Math.floor(diferencaEmMilisegundos / 1000);
+    const minutos = Math.floor(segundos / 60);
+    const horas = Math.floor(minutos / 60);
+    const dias = Math.floor(horas / 24);
+
+    return `${dias}d ${horas}h ${minutos}m`;
   }
 }

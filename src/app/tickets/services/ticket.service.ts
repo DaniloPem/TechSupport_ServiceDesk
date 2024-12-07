@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Ticket } from '../model/ticket';
 
 @Injectable({
@@ -32,18 +32,21 @@ export class TicketService {
     return this.httpClient.get<Ticket>(`${this.API}/${id}`);
   }
 
-  saveTicket(ticketRecord: Partial<Ticket>) {
+  saveTicket(ticketRecord: Partial<Ticket>): Observable<number> {
     if (ticketRecord.id) {
       return this.updateTicket(ticketRecord);
     }
     return this.createTicket(ticketRecord);
   }
 
-  private createTicket(ticketRecord: Partial<Ticket>) {
-    return this.httpClient.post(this.API, ticketRecord);
+  private createTicket(ticketRecord: Partial<Ticket>): Observable<number> {
+    return this.httpClient.post<number>(this.API, ticketRecord);
   }
 
-  private updateTicket(ticketRecord: Partial<Ticket>) {
-    return this.httpClient.put(`${this.API}/${ticketRecord.id}`, ticketRecord);
+  private updateTicket(ticketRecord: Partial<Ticket>): Observable<number> {
+    return this.httpClient.put<number>(
+      `${this.API}/${ticketRecord.id}`,
+      ticketRecord
+    );
   }
 }

@@ -21,7 +21,7 @@
       class="formulario-ticketID"
     >
       <mat-label>Date:</mat-label>
-      <input formControlName="dataEHorarioDeCriacao" matInput readonly />
+      <input matInput readonly [value]="dataDeCriacao" />
     </mat-form-field>
 
     <mat-form-field
@@ -30,7 +30,7 @@
       class="formulario-ticketID"
     >
       <mat-label>Age:</mat-label>
-      <input formControlName="dataEHorarioDeCriacao" matInput readonly />
+      <input matInput readonly [value]="ageTicket" />
     </mat-form-field>
   </div>
 
