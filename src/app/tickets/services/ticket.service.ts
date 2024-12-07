@@ -24,8 +24,12 @@ export class TicketService {
     );
   }
 
+  getListTicket() {
+    return this.httpClient.get<Ticket[]>(`${this.API}`);
+  }
+
   getTicketById(id: number) {
-    return this.httpClient.get(`${this.API}/${id}`);
+    return this.httpClient.get<Ticket>(`${this.API}/${id}`);
   }
 
   saveTicket(ticketRecord: Partial<Ticket>) {
