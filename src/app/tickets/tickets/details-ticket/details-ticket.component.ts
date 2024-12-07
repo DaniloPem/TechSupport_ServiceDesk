@@ -74,6 +74,7 @@ export class DetailsTicketComponent implements OnDestroy {
     const subscriptionStatusOpen =
       this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
         this.pegarStatusOpenDoTicketCriado(acaoMenu);
+        this.pegarTipoDoTicketCriado(acaoMenu);
       });
     this.subscriptions.push(subscriptionSalvarTciket, subscriptionStatusOpen);
     this.formTicket;
