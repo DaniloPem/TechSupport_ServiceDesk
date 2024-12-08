@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Ticket } from '../model/ticket';
+import { DadosVisualizacaoTicketById } from '../model/dadosVisualizacaoTicket';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +29,10 @@ export class TicketService {
     return this.httpClient.get<Ticket[]>(`${this.API}`);
   }
 
-  getTicketById(id: number) {
-    return this.httpClient.get<Ticket>(`${this.API}/${id}`);
+  getTicketById(id: number): Observable<DadosVisualizacaoTicketById> {
+    return this.httpClient.get<DadosVisualizacaoTicketById>(
+      `${this.API}/${id}`
+    );
   }
 
   saveTicket(ticketRecord: Partial<Ticket>): Observable<number> {

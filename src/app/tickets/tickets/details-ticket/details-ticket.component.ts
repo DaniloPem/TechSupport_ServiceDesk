@@ -1,3 +1,4 @@
+import { UsuarioDto } from 'src/app/tickets/services/ticket-details.service';
 import { TicketService } from './../../services/ticket.service';
 import { Component, Input, OnDestroy } from '@angular/core';
 import {
@@ -12,7 +13,6 @@ import { Observable, Subscription } from 'rxjs';
 import {
   AtributoDto,
   TicketDetailsService,
-  UsuarioDto,
 } from './../../services/ticket-details.service';
 import { UsuariosSemelhantesComponent } from './usuarios-semelhantes/usuarios-semelhantes.component';
 import { TipoTicket } from '../../model/tipoTicket';
@@ -48,7 +48,7 @@ export class DetailsTicketComponent implements OnDestroy {
 
   usuarioAfetadoControl = new FormControl();
   listaUsuariosAfetados!: UsuarioDto[];
-  usuarioAfetado: UsuarioDto | null = null;
+  usuarioAfetado: Partial<UsuarioDto> | null = null;
 
   grupoAssignadoControl = new FormControl();
   listaGrouposAssignados!: Observable<AtributoDto[]>;
@@ -123,7 +123,6 @@ export class DetailsTicketComponent implements OnDestroy {
       solucao: [null],
       solucaoDadosPessoais: [null],
     });
-    console.log(this.formTicket);
   }
 
   ngOnDestroy(): void {
@@ -148,7 +147,6 @@ export class DetailsTicketComponent implements OnDestroy {
 
   salvarTicket(acaoMenuTicket: string) {
     if (acaoMenuTicket === 'Save') {
-      console.log(this.formTicket?.value);
       this.ticketService.saveTicket(this.formTicket?.value).subscribe({
         next: (ticketId) => {
           this.ticketService.getTicketById(ticketId).subscribe((ticket) => {
@@ -160,6 +158,17 @@ export class DetailsTicketComponent implements OnDestroy {
               this.dataEHorarioDeCriacaoDoTicket
             );
             this.statusDoTicket = ticket.status;
+            if (
+              this.usuarioAfetadoControl.value === null ||
+              this.usuarioAfetadoControl.value === ''
+            ) {
+              this.usuarioAfetado = {
+                id: ticket.reportadoParaId,
+                codigo: ticket.reportadoPorCodigo,
+                nome: ticket.reportadoPorNome,
+              };
+              this.usuarioAfetadoControl.setValue(ticket.reportadoPorCodigo);
+            }
           });
           this.ticketSalvoComSucesso();
           this.salvarOTicketPelaPrimeiraVez = true;

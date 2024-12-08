@@ -12,7 +12,7 @@
 
     <mat-form-field appearance="outline" class="formulario-ticketID">
       <mat-label>Status:</mat-label>
-      <input formControlName="status" matInput readonly />
+      <input matInput readonly [value]="statusDoTicket" />
     </mat-form-field>
 
     <mat-form-field
@@ -52,6 +52,7 @@
               matInput
               class="userID"
               maxlength="7"
+              [readonly]="salvarOTicketPelaPrimeiraVez"
               [formControl]="usuarioReportadoControl"
             />
             <button
@@ -86,13 +87,15 @@
               matInput
               class="userID"
               maxlength="7"
+              [readonly]="salvarOTicketPelaPrimeiraVez"
               [formControl]="usuarioAfetadoControl"
             />
             <button
-              (click)="buscarUsuariosAfetados()"
               mat-icon-button
               matSuffix
               matTooltip="Search user"
+              (click)="buscarUsuariosAfetados()"
+              *ngIf="salvarOTicketPelaPrimeiraVez === false"
             >
               <mat-icon>search</mat-icon>
             </button>
