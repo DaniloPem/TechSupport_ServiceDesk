@@ -3,7 +3,8 @@
     <app-menu></app-menu>
   </mat-drawer>
   <mat-drawer-content class="conteudo">
-    <mat-tab-group
+    <app-tabela-tickets></app-tabela-tickets>
+    <!-- <mat-tab-group
       animationDuration="0ms"
       mat-stretch-tabs="false"
       mat-align-tabs="start"
@@ -20,9 +21,8 @@
             <mat-icon>close</mat-icon>
           </button>
         </ng-template>
-        <!-- <app-tickets [numeroTicket]="tab"></app-tickets> -->
-        <app-tabela-tickets></app-tabela-tickets>
+        <app-tickets [numeroTicket]="tab"></app-tickets>
       </mat-tab>
-    </mat-tab-group>
+    </mat-tab-group> -->
   </mat-drawer-content>
 </mat-drawer-container>
