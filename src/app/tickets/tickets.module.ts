@@ -27,6 +27,8 @@ import { UsuariosSemelhantesComponent } from './tickets/details-ticket/usuarios-
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TabelaTicketsComponent } from './conteudo/tabela-tickets/tabela-tickets.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     DetailsTicketComponent,
     AttachmentsTicketComponent,
     UsuariosSemelhantesComponent,
+    TabelaTicketsComponent,
   ],
   imports: [
     CommonModule,
@@ -57,6 +60,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDialogModule,
     MatTableModule,
     MatSnackBarModule,
+    MatPaginatorModule,
   ],
 })
 export class TicketsModule {}
