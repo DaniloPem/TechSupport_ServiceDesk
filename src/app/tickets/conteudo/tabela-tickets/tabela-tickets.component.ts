@@ -38,4 +38,13 @@ export class TabelaTicketsComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+
+  aplicarFiltroDaTabelaDaListaDosTickets(event: Event) {
+    const valorDoFiltro = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = valorDoFiltro.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 }

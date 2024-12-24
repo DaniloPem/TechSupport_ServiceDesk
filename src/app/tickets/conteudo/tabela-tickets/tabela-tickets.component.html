@@ -1,7 +1,11 @@
 <div class="lista-tickets-container">
   <mat-form-field>
     <mat-label>Filter</mat-label>
-    <input matInput placeholder="Ex. Mia" #input />
+    <input
+      matInput
+      (keyup)="aplicarFiltroDaTabelaDaListaDosTickets($event)"
+      #input
+    />
   </mat-form-field>
 
   <div class="mat-elevation-z8">
