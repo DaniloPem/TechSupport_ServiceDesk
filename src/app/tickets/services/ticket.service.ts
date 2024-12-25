@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Ticket } from '../model/ticket';
 import { DadosVisualizacaoTicketById } from '../model/dadosVisualizacaoTicket';
+import { DadosVisualizacaoTicketPorTipo } from '../model/dadosVisualizacaoTabelaPorTipo';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +26,10 @@ export class TicketService {
     );
   }
 
-  getListTicket() {
-    return this.httpClient.get<Ticket[]>(`${this.API}`);
+  getListTicketPorTipo(tipoTicket: string) {
+    return this.httpClient.get<DadosVisualizacaoTicketPorTipo[]>(
+      `${this.API}?type=${tipoTicket}`
+    );
   }
 
   getTicketById(id: number): Observable<DadosVisualizacaoTicketById> {
