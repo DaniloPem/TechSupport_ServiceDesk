@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Ticket } from '../model/ticket';
 import { DadosVisualizacaoTicketById } from '../model/dadosVisualizacaoTicket';
 import { DadosVisualizacaoTicketPorTipo } from '../model/dadosVisualizacaoTabelaPorTipo';
+import { TicketPage } from '../model/ticket-page';
 
 @Injectable({
   providedIn: 'root',
@@ -26,10 +27,16 @@ export class TicketService {
     );
   }
 
-  getListTicketPorTipo(tipoTicket: string) {
-    return this.httpClient.get<DadosVisualizacaoTicketPorTipo[]>(
-      `${this.API}?type=${tipoTicket}`
-    );
+  getListTicketPorTipo(
+    tipoTicket: string,
+    page: number = 0,
+    pageSize: number = 30
+  ) {
+    const params = new HttpParams()
+      .set('type', tipoTicket)
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+    return this.httpClient.get<TicketPage[]>(`${this.API}`, { params });
   }
 
   getTicketById(id: number): Observable<DadosVisualizacaoTicketById> {

@@ -3,6 +3,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Ticket } from '../../model/ticket';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { TicketService } from '../../services/ticket.service';
+import { DadosVisualizacaoTicketPorTipo } from '../../model/dadosVisualizacaoTabelaPorTipo';
+import { TipoTicket } from '../../model/tipoTicket';
 
 @Component({
   selector: 'app-tabela-tickets',
@@ -25,18 +28,22 @@ export class TabelaTicketsComponent implements AfterViewInit {
     'openingGroup',
     'openedBy',
   ];
-  dataSource: MatTableDataSource<Ticket>;
+  dataSource!: MatTableDataSource<DadosVisualizacaoTicketPorTipo>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
-    this.dataSource = new MatTableDataSource();
+  constructor(private ticketService: TicketService) {
+    ticketService
+      .getListTicketPorTipo(TipoTicket.INCIDENT)
+      .subscribe((tickets) => {
+        console.log(tickets);
+        this.dataSource =
+          new MatTableDataSource<DadosVisualizacaoTicketPorTipo>(tickets);
+      });
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   aplicarFiltroDaTabelaDaListaDosTickets(event: Event) {
