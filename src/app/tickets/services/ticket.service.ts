@@ -31,12 +31,12 @@ export class TicketService {
     tipoTicket: string,
     page: number = 0,
     pageSize: number = 30
-  ) {
+  ): Observable<TicketPage> {
     const params = new HttpParams()
       .set('type', tipoTicket)
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
-    return this.httpClient.get<TicketPage[]>(`${this.API}`, { params });
+    return this.httpClient.get<TicketPage>(`${this.API}`, { params });
   }
 
   getTicketById(id: number): Observable<DadosVisualizacaoTicketById> {

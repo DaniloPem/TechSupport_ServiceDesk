@@ -1,11 +1,10 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Ticket } from '../../model/ticket';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { TicketService } from '../../services/ticket.service';
-import { DadosVisualizacaoTicketPorTipo } from '../../model/dadosVisualizacaoTabelaPorTipo';
 import { TipoTicket } from '../../model/tipoTicket';
+import { TicketPage } from '../../model/ticket-page';
+import { DadosVisualizacaoTicketPorTipo } from '../../model/dadosVisualizacaoTabelaPorTipo';
 
 @Component({
   selector: 'app-tabela-tickets',
@@ -32,18 +31,34 @@ export class TabelaTicketsComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  pageIndex = 0;
+  pageSize = 30;
+  ticketsListaPorTipoLength!: number;
+
   constructor(private ticketService: TicketService) {
-    ticketService
-      .getListTicketPorTipo(TipoTicket.INCIDENT)
-      .subscribe((tickets) => {
-        console.log(tickets);
-        this.dataSource =
-          new MatTableDataSource<DadosVisualizacaoTicketPorTipo>(tickets);
-      });
+    this.pegarListaDeTicketPorTipo();
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  pegarListaDeTicketPorTipo(
+    pageEvent: PageEvent = { length: 0, pageIndex: 0, pageSize: 30 }
+  ) {
+    this.ticketService
+      .getListTicketPorTipo(
+        TipoTicket.INCIDENT,
+        pageEvent.pageIndex,
+        pageEvent.pageSize
+      )
+      .subscribe((res) => {
+        this.dataSource =
+          new MatTableDataSource<DadosVisualizacaoTicketPorTipo>(res.tickets);
+        this.pageIndex = pageEvent.pageIndex;
+        this.pageSize = pageEvent.pageSize;
+        this.ticketsListaPorTipoLength = res.totalTickets;
+      });
   }
 
   aplicarFiltroDaTabelaDaListaDosTickets(event: Event) {

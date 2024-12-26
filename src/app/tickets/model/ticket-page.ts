@@ -1,7 +1,7 @@
 import { DadosVisualizacaoTicketPorTipo } from './dadosVisualizacaoTabelaPorTipo';
 
 export interface TicketPage {
-  tickets: DadosVisualizacaoTicketPorTipo;
+  tickets: DadosVisualizacaoTicketPorTipo[];
   totalTickets: number;
   totalPages: number;
 }

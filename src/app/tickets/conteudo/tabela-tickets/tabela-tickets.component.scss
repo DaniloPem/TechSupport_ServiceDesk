@@ -1,0 +1,10 @@
+$altura-toolbar-top-da-pagina: 64px;
+$altura-filter-container-da-lista-tickets: 78px;
+
+.tabela-lista-tickets {
+  height: calc(
+    100vh - $altura-toolbar-top-da-pagina -
+      $altura-filter-container-da-lista-tickets
+  );
+  overflow-y: auto;
+}

@@ -1,102 +1,112 @@
-<mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input
-    matInput
-    (keyup)="aplicarFiltroDaTabelaDaListaDosTickets($event)"
-    #input
-  />
-</mat-form-field>
+<div class="tabela-lista-tickets-container">
+  <div class="filter-container">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input
+        matInput
+        (keyup)="aplicarFiltroDaTabelaDaListaDosTickets($event)"
+        #input
+      />
+    </mat-form-field>
+  </div>
 
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="numeroTicketSegundoTipo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Number</th>
-      <td mat-cell *matCellDef="let row">
-        {{ row.numeroTicketSegundoTipo }}
-      </td>
-    </ng-container>
+  <div class="mat-elevation-z8 tabela-lista-tickets">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="numeroTicketSegundoTipo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Number</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.numeroTicketSegundoTipo }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="titulo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Titulo</th>
-      <td mat-cell *matCellDef="let row">{{ row.titulo }}</td>
-    </ng-container>
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Titulo</th>
+        <td mat-cell *matCellDef="let row">{{ row.titulo }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-      <td mat-cell *matCellDef="let row">{{ row.status }}</td>
-    </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let row">{{ row.status }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="reportadoPorId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Reported by</th>
-      <td mat-cell *matCellDef="let row">{{ row.reportadoPorNome }}</td>
-    </ng-container>
+      <ng-container matColumnDef="reportadoPorId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Reported by</th>
+        <td mat-cell *matCellDef="let row">{{ row.reportadoPorNome }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="reportadoParaId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Reported for</th>
-      <td mat-cell *matCellDef="let row">{{ row.reportadoParaNome }}</td>
-    </ng-container>
+      <ng-container matColumnDef="reportadoParaId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Reported for</th>
+        <td mat-cell *matCellDef="let row">{{ row.reportadoParaNome }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="dataEHorarioDeCriacao">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Opening date</th>
-      <td mat-cell *matCellDef="let row">{{ row.dataEHorarioDeCriacao }}</td>
-    </ng-container>
+      <ng-container matColumnDef="dataEHorarioDeCriacao">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Opening date</th>
+        <td mat-cell *matCellDef="let row">{{ row.dataEHorarioDeCriacao }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="lastUpdate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Update</th>
-      <td mat-cell *matCellDef="let row">lastUpdate</td>
-    </ng-container>
+      <ng-container matColumnDef="lastUpdate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Update</th>
+        <td mat-cell *matCellDef="let row">lastUpdate</td>
+      </ng-container>
 
-    <ng-container matColumnDef="categoriaReportadaId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Reported category
-      </th>
-      <td mat-cell *matCellDef="let row">
-        {{ row.categoriaReportadaNome }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="categoriaReportadaId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Reported category
+        </th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.categoriaReportadaNome }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="categoriaAfetadaId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Affected category
-      </th>
-      <td mat-cell *matCellDef="let row">
-        {{ row.categoriaAfetadaNome }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="categoriaAfetadaId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Affected category
+        </th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.categoriaAfetadaNome }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="grupoAssignadoId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Assigned group</th>
-      <td mat-cell *matCellDef="let row">{{ row.grupoAssignadoNome }}</td>
-    </ng-container>
+      <ng-container matColumnDef="grupoAssignadoId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Assigned group
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.grupoAssignadoNome }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="assignedTo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Assigned to</th>
-      <td mat-cell *matCellDef="let row">assignedTo</td>
-    </ng-container>
+      <ng-container matColumnDef="assignedTo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Assigned to</th>
+        <td mat-cell *matCellDef="let row">assignedTo</td>
+      </ng-container>
 
-    <ng-container matColumnDef="openingGroup">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Opening group</th>
-      <td mat-cell *matCellDef="let row">openingGroup</td>
-    </ng-container>
+      <ng-container matColumnDef="openingGroup">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Opening group</th>
+        <td mat-cell *matCellDef="let row">openingGroup</td>
+      </ng-container>
 
-    <ng-container matColumnDef="openedBy">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Opened by</th>
-      <td mat-cell *matCellDef="let row">openedBy</td>
-    </ng-container>
+      <ng-container matColumnDef="openedBy">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Opened by</th>
+        <td mat-cell *matCellDef="let row">openedBy</td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">
-        No data matching the filter "{{ input.value }}"
-      </td>
-    </tr>
-  </table>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">
+          No data matching the filter "{{ input.value }}"
+        </td>
+      </tr>
+    </table>
 
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 20, 30]"
-    showFirstLastButtons
-    aria-label="Select page of tickets"
-  ></mat-paginator>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20, 30]"
+      showFirstLastButtons
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      [length]="ticketsListaPorTipoLength"
+      (page)="pegarListaDeTicketPorTipo($event)"
+      aria-label="Select page of tickets"
+    ></mat-paginator>
+  </div>
 </div>
