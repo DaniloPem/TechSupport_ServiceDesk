@@ -1,10 +1,12 @@
 $altura-toolbar-top-da-pagina: 64px;
 $altura-filter-container-da-lista-tickets: 78px;
+$altura-paginator-tabela-tickets: 56px;
 
 .tabela-lista-tickets {
   height: calc(
     100vh - $altura-toolbar-top-da-pagina -
-      $altura-filter-container-da-lista-tickets
+      $altura-filter-container-da-lista-tickets -
+      $altura-paginator-tabela-tickets
   );
   overflow-y: auto;
 }
