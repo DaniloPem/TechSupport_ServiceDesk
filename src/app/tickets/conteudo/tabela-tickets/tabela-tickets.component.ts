@@ -6,6 +6,7 @@ import { TipoTicket } from '../../model/tipoTicket';
 import { TicketPage } from '../../model/ticket-page';
 import { DadosVisualizacaoTicketPorTipo } from '../../model/dadosVisualizacaoTabelaPorTipo';
 import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-tabela-tickets',
@@ -29,45 +30,60 @@ export class TabelaTicketsComponent implements AfterViewInit {
     'openedBy',
   ];
   dataSource!: MatTableDataSource<DadosVisualizacaoTicketPorTipo>;
+  filterListaTicketsControl = new FormControl();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  filterValue: string = '';
   pageIndex: number = 0;
   pageSize: number = 30;
   ticketsListaPorTipoLength!: number;
 
   constructor(private ticketService: TicketService) {
-    this.pegarListaDeTicketPorTipo();
+    this.iniciarValueChangesFiltro();
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.carregarListaTicketsPorTipo();
   }
 
-  pegarListaDeTicketPorTipo(
-    pageEvent: PageEvent = { length: 0, pageIndex: 0, pageSize: 30 }
-  ) {
+  ngOnInit() {}
+
+  carregarListaTicketsPorTipo() {
     this.ticketService
-      .getListTicketPorTipo(
-        TipoTicket.INCIDENT,
-        this.filterValue,
-        pageEvent.pageIndex,
-        pageEvent.pageSize
-      )
+      .getListTicketPorTipo(TipoTicket.INCIDENT, '', 0, 30)
       .subscribe((res) => {
         this.dataSource =
           new MatTableDataSource<DadosVisualizacaoTicketPorTipo>(res.tickets);
-        this.pageIndex = pageEvent.pageIndex;
-        this.pageSize = pageEvent.pageSize;
         this.ticketsListaPorTipoLength = res.totalTickets;
       });
   }
 
-  aplicarFiltroDaTabelaDaListaDosTickets(event: Event) {
-    this.filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = this.filterValue.trim().toLowerCase();
+  iniciarValueChangesFiltro() {
+    this.filterListaTicketsControl.valueChanges
+      .pipe(debounceTime(1500))
+      .subscribe(() => {
+        this.pegarListaDeTicketPorTipo();
+      });
+  }
 
+  pegarListaDeTicketPorTipo() {
+    this.ticketService
+      .getListTicketPorTipo(
+        TipoTicket.INCIDENT,
+        this.filterListaTicketsControl.value,
+        this.paginator.pageIndex,
+        this.paginator.pageSize
+      )
+      .subscribe((res) => {
+        this.dataSource =
+          new MatTableDataSource<DadosVisualizacaoTicketPorTipo>(res.tickets);
+        this.pageIndex = this.paginator.pageIndex;
+        this.pageSize = this.paginator.pageSize;
+        this.ticketsListaPorTipoLength = res.totalTickets;
+      });
+  }
+
+  aplicarFiltroDaTabelaDaListaDosTickets() {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

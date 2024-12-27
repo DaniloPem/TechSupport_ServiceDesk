@@ -2,11 +2,12 @@
   <div class="filter-container">
     <mat-form-field>
       <mat-label>Filter</mat-label>
-      <input
+      <input matInput #input [formControl]="filterListaTicketsControl" />
+      <!-- <input
         matInput
         (keyup)="aplicarFiltroDaTabelaDaListaDosTickets($event)"
         #input
-      />
+      /> -->
     </mat-form-field>
   </div>
 
@@ -105,7 +106,7 @@
     [pageIndex]="pageIndex"
     [pageSize]="pageSize"
     [length]="ticketsListaPorTipoLength"
-    (page)="pegarListaDeTicketPorTipo($event)"
+    (page)="pegarListaDeTicketPorTipo()"
     aria-label="Select page of tickets"
   ></mat-paginator>
 </div>
