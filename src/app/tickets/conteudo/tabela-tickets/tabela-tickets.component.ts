@@ -5,6 +5,7 @@ import { TicketService } from '../../services/ticket.service';
 import { TipoTicket } from '../../model/tipoTicket';
 import { TicketPage } from '../../model/ticket-page';
 import { DadosVisualizacaoTicketPorTipo } from '../../model/dadosVisualizacaoTabelaPorTipo';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-tabela-tickets',
@@ -31,8 +32,9 @@ export class TabelaTicketsComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  pageIndex = 0;
-  pageSize = 30;
+  filterValue: string = '';
+  pageIndex: number = 0;
+  pageSize: number = 30;
   ticketsListaPorTipoLength!: number;
 
   constructor(private ticketService: TicketService) {
@@ -49,6 +51,7 @@ export class TabelaTicketsComponent implements AfterViewInit {
     this.ticketService
       .getListTicketPorTipo(
         TipoTicket.INCIDENT,
+        this.filterValue,
         pageEvent.pageIndex,
         pageEvent.pageSize
       )
@@ -62,8 +65,8 @@ export class TabelaTicketsComponent implements AfterViewInit {
   }
 
   aplicarFiltroDaTabelaDaListaDosTickets(event: Event) {
-    const valorDoFiltro = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = valorDoFiltro.trim().toLowerCase();
+    this.filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = this.filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
