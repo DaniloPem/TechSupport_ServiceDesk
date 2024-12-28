@@ -22,7 +22,12 @@
         </ng-template>
         <div [ngSwitch]="tabs[index]">
           <app-tabela-tickets
+            [tipoTicket]="tipoTicket"
             *ngSwitchCase="'Incident Queue'"
+          ></app-tabela-tickets>
+          <app-tabela-tickets
+            [tipoTicket]="tipoTicket"
+            *ngSwitchCase="'Request Queue'"
           ></app-tabela-tickets>
           <app-tickets *ngSwitchDefault [numeroTicket]="tab"></app-tickets>
         </div>

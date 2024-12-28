@@ -13,6 +13,8 @@ export class ConteudoComponent implements OnDestroy {
 
   subscriptions: Subscription[] = [];
 
+  tipoTicket!: TipoTicket;
+
   constructor(private ticketService: TicketService) {
     const subscriptionCreateIncident =
       this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
@@ -63,8 +65,10 @@ export class ConteudoComponent implements OnDestroy {
 
   showListTicketsByType(acaoMenu: any) {
     if (acaoMenu.nome === 'Incident Queue') {
+      this.tipoTicket = TipoTicket.INCIDENT;
       this.tabs.push('Incident Queue');
     } else if (acaoMenu.nome === 'Request Queue') {
+      this.tipoTicket = TipoTicket.REQUEST;
       this.tabs.push('Request Queue');
     }
   }

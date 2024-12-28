@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { TicketService } from '../../services/ticket.service';
 import { TipoTicket } from '../../model/tipoTicket';
-import { TicketPage } from '../../model/ticket-page';
 import { DadosVisualizacaoTicketPorTipo } from '../../model/dadosVisualizacaoTabelaPorTipo';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs';
@@ -29,6 +28,9 @@ export class TabelaTicketsComponent implements AfterViewInit {
     'openingGroup',
     'openedBy',
   ];
+
+  @Input() tipoTicket!: TipoTicket;
+
   dataSource!: MatTableDataSource<DadosVisualizacaoTicketPorTipo>;
   filterListaTicketsControl = new FormControl();
 
@@ -50,7 +52,7 @@ export class TabelaTicketsComponent implements AfterViewInit {
 
   carregarListaTicketsPorTipo() {
     this.ticketService
-      .getListTicketPorTipo(TipoTicket.INCIDENT, '', 0, 30)
+      .getListTicketPorTipo(this.tipoTicket, '', 0, 30)
       .subscribe((res) => {
         this.dataSource =
           new MatTableDataSource<DadosVisualizacaoTicketPorTipo>(res.tickets);
@@ -69,7 +71,7 @@ export class TabelaTicketsComponent implements AfterViewInit {
   pegarListaDeTicketPorTipo() {
     this.ticketService
       .getListTicketPorTipo(
-        TipoTicket.INCIDENT,
+        this.tipoTicket,
         this.filterListaTicketsControl.value,
         this.paginator.pageIndex,
         this.paginator.pageSize
