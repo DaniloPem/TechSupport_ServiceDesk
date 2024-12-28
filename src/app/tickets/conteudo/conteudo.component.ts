@@ -22,9 +22,14 @@ export class ConteudoComponent implements OnDestroy {
       this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
         this.createRequestTicket(acaoMenu);
       });
+    const subscriptionShowListTickets =
+      this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
+        this.showListTicketsByType(acaoMenu);
+      });
     this.subscriptions.push(
       subscriptionCreateIncident,
-      subscriptionCreateRequest
+      subscriptionCreateRequest,
+      subscriptionShowListTickets
     );
   }
 
@@ -53,6 +58,14 @@ export class ConteudoComponent implements OnDestroy {
         .subscribe((numeroTicket) => {
           this.tabs.push(numeroTicket);
         });
+    }
+  }
+
+  showListTicketsByType(acaoMenu: any) {
+    if (acaoMenu.nome === 'Incident Queue') {
+      this.tabs.push('Incident Queue');
+    } else if (acaoMenu.nome === 'Request Queue') {
+      this.tabs.push('Request Queue');
     }
   }
 }
