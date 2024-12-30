@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { TicketService } from '../../services/ticket.service';
@@ -6,6 +13,7 @@ import { TipoTicket } from '../../model/tipoTicket';
 import { DadosVisualizacaoTicketPorTipo } from '../../model/dadosVisualizacaoTabelaPorTipo';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs';
+import { DadosVisualizacaoTicketById } from '../../model/dadosVisualizacaoTicket';
 
 @Component({
   selector: 'app-tabela-tickets',
@@ -13,6 +21,8 @@ import { debounceTime } from 'rxjs';
   styleUrls: ['./tabela-tickets.component.scss'],
 })
 export class TabelaTicketsComponent implements AfterViewInit {
+  @Output() eventoSelecionarTicket = new EventEmitter();
+
   displayedColumns: string[] = [
     'numeroTicketSegundoTipo',
     'titulo',
@@ -72,7 +82,7 @@ export class TabelaTicketsComponent implements AfterViewInit {
     this.ticketService
       .getListTicketPorTipo(
         this.tipoTicket,
-        this.filterListaTicketsControl.value,
+        this.filterListaTicketsControl.value ?? '',
         this.paginator.pageIndex,
         this.paginator.pageSize
       )
@@ -89,5 +99,9 @@ export class TabelaTicketsComponent implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  selectTicket(ticket: DadosVisualizacaoTicketPorTipo) {
+    this.eventoSelecionarTicket.emit(ticket);
   }
 }

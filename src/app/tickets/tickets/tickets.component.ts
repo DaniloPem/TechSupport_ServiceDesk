@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DadosVisualizacaoTicketPorTipo } from '../model/dadosVisualizacaoTabelaPorTipo';
 
 @Component({
   selector: 'app-tickets',
@@ -7,4 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class TicketsComponent {
   @Input() numeroTicket!: string;
+  @Input() ticketSelcionado!: DadosVisualizacaoTicketPorTipo;
 }

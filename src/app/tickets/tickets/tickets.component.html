@@ -8,7 +8,10 @@
       mat-align-tabs="start"
     >
       <mat-tab label="Ticket Details">
-        <app-details-ticket [numeroTicket]="numeroTicket"></app-details-ticket>
+        <app-details-ticket
+          [numeroTicket]="numeroTicket"
+          [ticketSelecionado]="ticketSelcionado"
+        ></app-details-ticket>
       </mat-tab>
       <mat-tab label="Attachments">
         <app-attachments-ticket></app-attachments-ticket>

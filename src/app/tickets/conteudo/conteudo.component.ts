@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs';
 import { TipoTicket } from '../model/tipoTicket';
 import { TicketService } from './../services/ticket.service';
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { DadosVisualizacaoTicketById } from '../model/dadosVisualizacaoTicket';
 
 @Component({
   selector: 'app-conteudo',
@@ -48,7 +49,7 @@ export class ConteudoComponent implements OnDestroy {
       this.ticketService
         .getNumeroDoTicketSegundoOTipo(TipoTicket.INCIDENT)
         .subscribe((numeroTicket) => {
-          this.tabs.push(numeroTicket);
+          this.tabs.push({ nomeTab: numeroTicket });
         });
     }
   }
@@ -58,7 +59,7 @@ export class ConteudoComponent implements OnDestroy {
       this.ticketService
         .getNumeroDoTicketSegundoOTipo(TipoTicket.REQUEST)
         .subscribe((numeroTicket) => {
-          this.tabs.push(numeroTicket);
+          this.tabs.push({ nomeTab: numeroTicket });
         });
     }
   }
@@ -66,10 +67,14 @@ export class ConteudoComponent implements OnDestroy {
   showListTicketsByType(acaoMenu: any) {
     if (acaoMenu.nome === 'Incident Queue') {
       this.tipoTicket = TipoTicket.INCIDENT;
-      this.tabs.push('Incident Queue');
+      this.tabs.push({ nomeTab: 'Incident Queue' });
     } else if (acaoMenu.nome === 'Request Queue') {
       this.tipoTicket = TipoTicket.REQUEST;
-      this.tabs.push('Request Queue');
+      this.tabs.push({ nomeTab: 'Request Queue' });
     }
+  }
+
+  receberTicketSelecionado(ticket: DadosVisualizacaoTicketById) {
+    this.tabs.push({ nomeTab: ticket.numeroTicketSegundoTipo, data: ticket });
   }
 }

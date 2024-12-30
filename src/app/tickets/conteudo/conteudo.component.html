@@ -11,7 +11,7 @@
     >
       <mat-tab *ngFor="let tab of tabs; let index = index">
         <ng-template mat-tab-label>
-          <span>{{ tab }}</span>
+          <span>{{ tab.nomeTab }}</span>
           <button
             mat-icon-button
             matSuffix
@@ -21,16 +21,22 @@
             <mat-icon>close</mat-icon>
           </button>
         </ng-template>
-        <div [ngSwitch]="tabs[index]">
+        <div [ngSwitch]="tabs[index].nomeTab">
           <app-tabela-tickets
             [tipoTicket]="tipoTicket"
             *ngSwitchCase="'Incident Queue'"
+            (eventoSelecionarTicket)="receberTicketSelecionado($event)"
           ></app-tabela-tickets>
           <app-tabela-tickets
             [tipoTicket]="tipoTicket"
             *ngSwitchCase="'Request Queue'"
+            (eventoSelecionarTicket)="receberTicketSelecionado($event)"
           ></app-tabela-tickets>
-          <app-tickets *ngSwitchDefault [numeroTicket]="tab"></app-tickets>
+          <app-tickets
+            *ngSwitchDefault
+            [ticketSelcionado]="tab.data"
+            [numeroTicket]="tab.numeroTicketSegundoTipo"
+          ></app-tickets>
         </div>
       </mat-tab>
     </mat-tab-group>

@@ -17,6 +17,8 @@ import {
 import { UsuariosSemelhantesComponent } from './usuarios-semelhantes/usuarios-semelhantes.component';
 import { TipoTicket } from '../../model/tipoTicket';
 import { ActivatedRoute } from '@angular/router';
+import { DadosVisualizacaoTicketPorTipo } from '../../model/dadosVisualizacaoTabelaPorTipo';
+import { DadosVisualizacaoTicketById } from '../../model/dadosVisualizacaoTicket';
 
 @Component({
   selector: 'app-details-ticket',
@@ -24,13 +26,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./details-ticket.component.scss'],
 })
 export class DetailsTicketComponent implements OnDestroy {
-  ticketId!: string;
+  ticketId: number | null | undefined;
 
   @Input() numeroTicket!: string;
+  @Input() ticketSelecionado!: DadosVisualizacaoTicketPorTipo;
 
   tipoTicket!: string;
-
-  statusDoTicket!: string;
 
   dataEHorarioDeCriacaoDoTicket!: string;
 
@@ -38,7 +39,7 @@ export class DetailsTicketComponent implements OnDestroy {
 
   ageTicket!: string;
 
-  salvarOTicketPelaPrimeiraVez: boolean = false;
+  ticketSalvo: boolean = false;
 
   formTicket: FormGroup | undefined;
 
@@ -72,8 +73,7 @@ export class DetailsTicketComponent implements OnDestroy {
     private ticketDetailsService: TicketDetailsService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private ticketService: TicketService,
-    private activedRoute: ActivatedRoute
+    private ticketService: TicketService
   ) {
     const subscriptionSalvarTciket =
       this.ticketDetailsService.pegarAcaoMenuDoTicket$.subscribe(
@@ -83,7 +83,6 @@ export class DetailsTicketComponent implements OnDestroy {
       );
     const subscriptionStatusOpen =
       this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
-        this.pegarStatusOpenDoTicketCriado(acaoMenu);
         this.pegarTipoDoTicketCriado(acaoMenu);
       });
     this.subscriptions.push(subscriptionSalvarTciket, subscriptionStatusOpen);
@@ -91,10 +90,8 @@ export class DetailsTicketComponent implements OnDestroy {
   }
 
   ngOnInit() {
-    this.activedRoute.params.subscribe(() => {
-      this.ticketId = this.activedRoute.snapshot.paramMap.get('id') as string;
-    });
-    if (this.salvarOTicketPelaPrimeiraVez === false) {
+    this.ticketId = this.ticketSelecionado?.id;
+    if (this.ticketSalvo === false) {
       this.categoriaAfetadaControl.disable();
     }
     this.carregarCategorias();
@@ -103,38 +100,88 @@ export class DetailsTicketComponent implements OnDestroy {
     this.carregarSubTags();
     this.pegarIdSubTag();
     this.pegarIdgrupoAssignado();
-    this.formTicket = this.formBuilder.group({
-      id: [null],
-      status: [this.statusDoTicket],
-      dataEHorarioDeCriacao: [this.dataEHorarioDeCriacaoDoTicket],
-      tipo: [this.tipoTicket],
-      numeroTicketSegundoTipo: [this.numeroTicket],
-      titulo: [null, Validators.required],
-      reportadoPorId: [null, Validators.required],
-      reportadoParaId: [null],
-      grupoAssignadoId: [null, Validators.required],
-      gerenciadoPor: [null],
-      descricao: [null, Validators.required],
-      dadosPessoais: [null, Validators.required],
-      categoriaReportadaId: [null, Validators.required],
-      categoriaAfetadaId: [null],
-      tagId: [null],
-      subtagId: [null],
-      solucao: [null],
-      solucaoDadosPessoais: [null],
-    });
+    if (!this.ticketId) {
+      this.formTicket = this.formBuilder.group({
+        id: [null],
+        status: ['OPEN'],
+        tipo: [this.tipoTicket],
+        numeroTicketSegundoTipo: [this.numeroTicket],
+        titulo: [null, Validators.required],
+        reportadoPorId: [null, Validators.required],
+        reportadoParaId: [null],
+        grupoAssignadoId: [null, Validators.required],
+        gerenciadoPor: [null],
+        descricao: [null, Validators.required],
+        dadosPessoais: [null, Validators.required],
+        categoriaReportadaId: [null, Validators.required],
+        categoriaAfetadaId: [null],
+        tagId: [null],
+        subtagId: [null],
+        solucao: [null],
+        solucaoDadosPessoais: [null],
+      });
+    } else {
+      this.ticketSalvo = true;
+      this.categoriaReportadaControl.disable();
+      this.categoriaAfetadaControl.enable({ emitEvent: false });
+      this.ticketService.getTicketById(this.ticketId).subscribe((ticket) => {
+        this.formTicket = this.formBuilder.group({
+          id: [ticket.id],
+          status: [ticket.status],
+          dataEHorarioDeCriacao: [ticket.dataEHorarioDeCriacao],
+          tipo: [ticket.tipo],
+          numeroTicketSegundoTipo: [ticket.numeroTicketSegundoTipo],
+          titulo: [ticket.titulo, Validators.required],
+          reportadoPorId: [ticket.reportadoPorId, Validators.required],
+          reportadoParaId: [ticket.reportadoParaId],
+          grupoAssignadoId: [ticket.grupoAssignadoId, Validators.required],
+          gerenciadoPor: [ticket.gerenciadoPor],
+          descricao: [ticket.descricao, Validators.required],
+          dadosPessoais: [ticket.dadosPessoais, Validators.required],
+          categoriaReportadaId: [
+            ticket.categoriaReportadaId,
+            Validators.required,
+          ],
+          categoriaAfetadaId: [ticket.categoriaAfetadaId],
+          tagId: [ticket.tagId],
+          subtagId: [ticket.subtagId],
+          solucao: [ticket.solucao],
+          solucaoDadosPessoais: [ticket.solucaoDadosPessoais],
+        });
+        this.atribuirDataDeCriacaoEAge(ticket);
+        this.usuarioReportado = {
+          id: ticket.reportadoPorId,
+          nome: ticket.reportadoPorNome,
+        };
+        this.usuarioReportadoControl.setValue(ticket.reportadoPorCodigo);
+        this.usuarioAfetado = {
+          id: ticket.reportadoParaId,
+          nome: ticket.reportadoParaNome,
+        };
+        this.usuarioAfetadoControl.setValue(ticket.reportadoParaCodigo);
+        this.categoriaReportadaControl.setValue({
+          id: ticket.categoriaAfetadaId,
+          nome: ticket.categoriaReportadaNome,
+        });
+        this.categoriaAfetadaControl.setValue({
+          id: ticket.categoriaAfetadaId,
+          nome: ticket.categoriaAfetadaNome,
+        });
+        this.grupoAssignadoControl.setValue({
+          id: ticket.grupoAssignadoId,
+          nome: ticket.grupoAssignadoNome,
+        });
+        this.tagControl.setValue({ id: ticket.tagId, nome: ticket.tagNome });
+        this.subTagControl.setValue({
+          id: ticket.subtagId,
+          nome: ticket.subtagNome,
+        });
+      });
+    }
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
-  pegarStatusOpenDoTicketCriado(acaoMenu: any) {
-    if (
-      acaoMenu.nome === 'Create Incident' ||
-      acaoMenu.nome === 'Create Request'
-    )
-      this.statusDoTicket = acaoMenu.status;
   }
 
   pegarTipoDoTicketCriado(acaoMenu: any) {
@@ -150,14 +197,7 @@ export class DetailsTicketComponent implements OnDestroy {
       this.ticketService.saveTicket(this.formTicket?.value).subscribe({
         next: (ticketId) => {
           this.ticketService.getTicketById(ticketId).subscribe((ticket) => {
-            this.dataEHorarioDeCriacaoDoTicket = ticket.dataEHorarioDeCriacao;
-            this.dataDeCriacao = this.formatarData(
-              this.dataEHorarioDeCriacaoDoTicket
-            );
-            this.ageTicket = this.pegarAgeDoTicket(
-              this.dataEHorarioDeCriacaoDoTicket
-            );
-            this.statusDoTicket = ticket.status;
+            this.atribuirDataDeCriacaoEAge(ticket);
             if (
               this.usuarioAfetadoControl.value === null ||
               this.usuarioAfetadoControl.value === ''
@@ -171,11 +211,17 @@ export class DetailsTicketComponent implements OnDestroy {
             }
           });
           this.ticketSalvoComSucesso();
-          this.salvarOTicketPelaPrimeiraVez = true;
+          this.ticketSalvo = true;
         },
         error: () => this.erroAoSalvarTicket(),
       });
     }
+  }
+
+  private atribuirDataDeCriacaoEAge(ticket: DadosVisualizacaoTicketById) {
+    this.dataEHorarioDeCriacaoDoTicket = ticket.dataEHorarioDeCriacao;
+    this.dataDeCriacao = this.formatarData(this.dataEHorarioDeCriacaoDoTicket);
+    this.ageTicket = this.pegarAgeDoTicket(this.dataEHorarioDeCriacaoDoTicket);
   }
 
   buscarUsuariosReportados() {
@@ -267,15 +313,11 @@ export class DetailsTicketComponent implements OnDestroy {
           this.formTicket
             ?.get('categoriaReportadaId')
             ?.setValue(categoriaReportada.id);
-          if (this.salvarOTicketPelaPrimeiraVez === false) {
-            this.listaTags = this.ticketDetailsService.getTag(
-              categoriaReportada.id
-            );
-            this.listaGrouposAssignados =
-              this.ticketDetailsService.getGrupoAssignado(
-                categoriaReportada.id
-              );
-          }
+          this.listaTags = this.ticketDetailsService.getTag(
+            categoriaReportada.id
+          );
+          this.listaGrouposAssignados =
+            this.ticketDetailsService.getGrupoAssignado(categoriaReportada.id);
         }
       }
     });
@@ -295,13 +337,11 @@ export class DetailsTicketComponent implements OnDestroy {
           this.formTicket
             ?.get('categoriaAfetadaId')
             ?.setValue(categoriaAfetada.id);
-          // this.listaTags = this.ticketDetailsService.getTag(
-          //   categoriaAfetada.id
-          // );
-          // this.listaGrouposAssignados =
-          //   this.ticketDetailsService.getGrupoAssignado(
-          //     categoriaAfetada.id
-          //   );
+          this.listaTags = this.ticketDetailsService.getTag(
+            categoriaAfetada.id
+          );
+          this.listaGrouposAssignados =
+            this.ticketDetailsService.getGrupoAssignado(categoriaAfetada.id);
         }
       }
     });
@@ -349,10 +389,10 @@ export class DetailsTicketComponent implements OnDestroy {
     const agora = new Date();
     const diferencaEmMilisegundos = agora.getTime() - data.getTime();
     const segundos = Math.floor(diferencaEmMilisegundos / 1000);
-    const minutos = Math.floor(segundos / 60);
-    const horas = Math.floor(minutos / 60);
-    const dias = Math.floor(horas / 24);
+    const dias = segundos / 3600 / 24;
+    const horas = (dias - Math.floor(dias)) * 24;
+    const minutos = (horas - Math.floor(horas)) * 60;
 
-    return `${dias}d ${horas}h ${minutos}m`;
+    return `${Math.floor(dias)}d ${Math.floor(horas)}h ${Math.floor(minutos)}m`;
   }
 }

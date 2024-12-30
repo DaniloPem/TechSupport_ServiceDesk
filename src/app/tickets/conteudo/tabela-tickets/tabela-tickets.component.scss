@@ -11,3 +11,13 @@ $altura-mat-tab: 48px;
   );
   overflow-y: auto;
 }
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background: whitesmoke;
+  // border-color: currentColor;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  font-size: 13px;
+  cursor: pointer;
+}

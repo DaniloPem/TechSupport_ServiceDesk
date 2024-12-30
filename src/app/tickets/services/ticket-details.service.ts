@@ -8,11 +8,11 @@ export interface AtributoDto {
 }
 
 export interface UsuarioDto {
-  id: number;
-  codigo: string;
-  nome: string;
-  email: string;
-  telefone: string;
+  id?: number;
+  codigo?: string;
+  nome?: string;
+  email?: string;
+  telefone?: string;
 }
 
 @Injectable({

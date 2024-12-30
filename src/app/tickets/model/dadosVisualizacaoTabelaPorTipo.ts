@@ -1,6 +1,7 @@
 import { StatusTicket } from './statusTicket';
 
 export interface DadosVisualizacaoTicketPorTipo {
+  id: number;
   status: StatusTicket;
   dataEHorarioDeCriacao: string;
   numeroTicketSegundoTipo: string;
