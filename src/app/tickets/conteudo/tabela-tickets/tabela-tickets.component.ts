@@ -95,12 +95,6 @@ export class TabelaTicketsComponent implements AfterViewInit {
       });
   }
 
-  aplicarFiltroDaTabelaDaListaDosTickets() {
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
   selectTicket(ticket: DadosVisualizacaoTicketPorTipo) {
     this.eventoSelecionarTicket.emit(ticket);
   }

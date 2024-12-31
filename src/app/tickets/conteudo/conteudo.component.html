@@ -32,6 +32,9 @@
             *ngSwitchCase="'Request Queue'"
             (eventoSelecionarTicket)="receberTicketSelecionado($event)"
           ></app-tabela-tickets>
+          <app-user-management
+            *ngSwitchCase="'User Management'"
+          ></app-user-management>
           <app-tickets
             *ngSwitchDefault
             [ticketSelcionado]="tab.data"

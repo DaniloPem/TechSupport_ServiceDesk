@@ -14,7 +14,6 @@ export class MenuComponent {
       opcoes: [
         { nome: 'Create Incident', status: 'Open' },
         { nome: 'Incident Queue' },
-        { nome: 'Search Incident' },
       ],
     },
     {
@@ -22,15 +21,15 @@ export class MenuComponent {
       opcoes: [
         { nome: 'Create Request', status: 'Open' },
         { nome: 'Request Queue' },
-        { nome: 'Search Request' },
       ],
     },
     {
-      nome: 'Template Tickets',
+      nome: 'Management',
       opcoes: [
-        { nome: 'Create Template' },
-        { nome: 'Template Queue' },
-        { nome: 'Search Template' },
+        { nome: 'User Management' },
+        { nome: 'Technical Groups Management' },
+        { nome: 'Configuration Item Management' },
+        { nome: 'Tabs Management' },
       ],
     },
   ];

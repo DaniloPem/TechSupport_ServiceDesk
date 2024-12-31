@@ -29,6 +29,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TabelaTicketsComponent } from './conteudo/tabela-tickets/tabela-tickets.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { UserManagementComponent } from './conteudo/user-management/user-management.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     AttachmentsTicketComponent,
     UsuariosSemelhantesComponent,
     TabelaTicketsComponent,
+    UserManagementComponent,
   ],
   imports: [
     CommonModule,
