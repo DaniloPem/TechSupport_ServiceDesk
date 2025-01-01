@@ -40,7 +40,7 @@ export class TechnicalGroupsManagementComponent implements AfterViewInit {
           new MatTableDataSource<DadosVisualizacaoAllGruposTecnicos>(
             res.grupos
           );
-        this.gruposListaLength = res.totalUsuarios;
+        this.gruposListaLength = res.totalGrupos;
       });
   }
 
@@ -66,7 +66,7 @@ export class TechnicalGroupsManagementComponent implements AfterViewInit {
           );
         this.pageIndex = this.paginator.pageIndex;
         this.pageSize = this.paginator.pageSize;
-        this.gruposListaLength = res.totalUsuarios;
+        this.gruposListaLength = res.totalGrupos;
       });
   }
 }

@@ -2,6 +2,6 @@ import { DadosVisualizacaoAllGruposTecnicos } from './dadosVisualizacaoAllGrupos
 
 export interface GruposTecnicosPage {
   grupos: DadosVisualizacaoAllGruposTecnicos[];
-  totalUsuarios: number;
+  totalGrupos: number;
   totalPages: number;
 }
