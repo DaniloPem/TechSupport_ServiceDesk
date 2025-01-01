@@ -33,11 +33,16 @@ export class ConteudoComponent implements OnDestroy {
       this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
         this.showListUser(acaoMenu);
       });
+    const subscriptionShowListTechincalGroups =
+      this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
+        this.showListTechnicalGroups(acaoMenu);
+      });
     this.subscriptions.push(
       subscriptionCreateIncident,
       subscriptionCreateRequest,
       subscriptionShowListTickets,
-      subscriptionShowListUsers
+      subscriptionShowListUsers,
+      subscriptionShowListTechincalGroups
     );
   }
 
@@ -82,6 +87,12 @@ export class ConteudoComponent implements OnDestroy {
   showListUser(acaoMenu: any) {
     if (acaoMenu.nome === 'User Management') {
       this.tabs.push({ nomeTab: 'User Management' });
+    }
+  }
+
+  showListTechnicalGroups(acaoMenu: any) {
+    if (acaoMenu.nome === 'Technical Groups Management') {
+      this.tabs.push({ nomeTab: 'Technical Groups Management' });
     }
   }
 
