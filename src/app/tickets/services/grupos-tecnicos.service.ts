@@ -1,25 +1,25 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UsuarioPage } from '../model/usuario-page';
+import { GruposTecnicosPage } from '../model/grupos-tecnicos-page';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsuarioService {
-  private readonly API = 'http://localhost:8080/api/usuarios';
+export class GruposTecnicosService {
+  private readonly API = 'http://localhost:8080/api/gruposAssignados';
 
   constructor(private httpClient: HttpClient) {}
 
-  getListUsuarios(
+  getListGruposTecnicos(
     filter: string = '',
     page: number = 0,
     pageSize: number = 30
-  ): Observable<UsuarioPage> {
+  ): Observable<GruposTecnicosPage> {
     const params = new HttpParams()
       .set('filter', filter)
       .set('page', page)
       .set('pageSize', pageSize);
-    return this.httpClient.get<UsuarioPage>(`${this.API}`, { params });
+    return this.httpClient.get<GruposTecnicosPage>(`${this.API}`, { params });
   }
 }

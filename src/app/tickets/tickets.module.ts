@@ -30,6 +30,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TabelaTicketsComponent } from './conteudo/tabela-tickets/tabela-tickets.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { UserManagementComponent } from './conteudo/user-management/user-management.component';
+import { TechnicalGroupsManagementComponent } from './conteudo/technical-groups-management/technical-groups-management.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { UserManagementComponent } from './conteudo/user-management/user-managem
     UsuariosSemelhantesComponent,
     TabelaTicketsComponent,
     UserManagementComponent,
+    TechnicalGroupsManagementComponent,
   ],
   imports: [
     CommonModule,
