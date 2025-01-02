@@ -1,8 +1,8 @@
-<div class="tabela-lista-grupos-container">
+<div class="tabela-lista-categorias-container">
   <div class="filter-container">
     <mat-form-field>
       <mat-label>Filter</mat-label>
-      <input matInput #input [formControl]="filterListaGruposControl" />
+      <input matInput #input [formControl]="filterListaCategoriasControl" />
     </mat-form-field>
   </div>
 
@@ -13,14 +13,16 @@
         <td mat-cell *matCellDef="let row">{{ row.nome }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="categoriasNome">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Categorys</th>
-        <td mat-cell *matCellDef="let row">{{ row.categoriasNome }}</td>
+      <ng-container matColumnDef="gruposAssignadosNome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Technical Groups
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.gruposAssignadosNome }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="usuariosNome">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Users</th>
-        <td mat-cell *matCellDef="let row">{{ row.usuariosNome }}</td>
+      <ng-container matColumnDef="tagsNome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tags</th>
+        <td mat-cell *matCellDef="let row">{{ row.tagsNome }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
@@ -38,8 +40,8 @@
     showFirstLastButtons
     [pageIndex]="pageIndex"
     [pageSize]="pageSize"
-    [length]="gruposListaLength"
-    (page)="pegarListaDeGrupos()"
-    aria-label="Select page of groups"
+    [length]="categoriasListaLength"
+    (page)="pegarListaDeCategorias()"
+    aria-label="Select page of Categorys"
   ></mat-paginator>
 </div>

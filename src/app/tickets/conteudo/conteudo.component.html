@@ -38,6 +38,9 @@
           <app-technical-groups-management
             *ngSwitchCase="'Technical Groups Management'"
           ></app-technical-groups-management>
+          <app-categoria-management
+            *ngSwitchCase="'Configuration Item Management'"
+          ></app-categoria-management>
           <app-tickets
             *ngSwitchDefault
             [ticketSelcionado]="tab.data"

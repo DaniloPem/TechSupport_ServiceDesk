@@ -11,7 +11,7 @@ export class CategoriaService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getListGruposTecnicos(
+  getListCategorias(
     filter: string = '',
     page: number = 0,
     pageSize: number = 30

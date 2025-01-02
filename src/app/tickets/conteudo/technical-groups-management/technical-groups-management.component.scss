@@ -1,0 +1,21 @@
+$altura-toolbar-top-da-pagina: 64px;
+$altura-filter-container-da-lista-tickets: 78px;
+$altura-paginator-tabela-tickets: 56px;
+$altura-mat-tab: 48px;
+
+.categorias {
+  height: calc(
+    100vh - $altura-toolbar-top-da-pagina -
+      $altura-filter-container-da-lista-tickets -
+      $altura-paginator-tabela-tickets - $altura-mat-tab
+  );
+  overflow-y: auto;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background: whitesmoke;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  font-size: 13px;
+}

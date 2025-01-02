@@ -31,6 +31,7 @@ import { TabelaTicketsComponent } from './conteudo/tabela-tickets/tabela-tickets
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { UserManagementComponent } from './conteudo/user-management/user-management.component';
 import { TechnicalGroupsManagementComponent } from './conteudo/technical-groups-management/technical-groups-management.component';
+import { CategoriaManagementComponent } from './conteudo/categoria-management/categoria-management.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { TechnicalGroupsManagementComponent } from './conteudo/technical-groups-
     TabelaTicketsComponent,
     UserManagementComponent,
     TechnicalGroupsManagementComponent,
+    CategoriaManagementComponent,
   ],
   imports: [
     CommonModule,
