@@ -29,7 +29,7 @@ export class MenuComponent {
         { nome: 'User Management' },
         { nome: 'Technical Groups Management' },
         { nome: 'Configuration Item Management' },
-        { nome: 'Tabs Management' },
+        { nome: 'Tag Management' },
       ],
     },
   ];

@@ -41,6 +41,9 @@
           <app-categoria-management
             *ngSwitchCase="'Configuration Item Management'"
           ></app-categoria-management>
+          <app-tag-management
+            *ngSwitchCase="'Tag Management'"
+          ></app-tag-management>
           <app-tickets
             *ngSwitchDefault
             [ticketSelcionado]="tab.data"

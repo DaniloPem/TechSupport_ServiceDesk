@@ -32,6 +32,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { UserManagementComponent } from './conteudo/user-management/user-management.component';
 import { TechnicalGroupsManagementComponent } from './conteudo/technical-groups-management/technical-groups-management.component';
 import { CategoriaManagementComponent } from './conteudo/categoria-management/categoria-management.component';
+import { TagManagementComponent } from './conteudo/tag-management/tag-management.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { CategoriaManagementComponent } from './conteudo/categoria-management/ca
     UserManagementComponent,
     TechnicalGroupsManagementComponent,
     CategoriaManagementComponent,
+    TagManagementComponent,
   ],
   imports: [
     CommonModule,

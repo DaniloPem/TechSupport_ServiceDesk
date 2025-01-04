@@ -37,7 +37,6 @@ export class CategoriaManagementComponent implements AfterViewInit {
       this.dataSource = new MatTableDataSource<DadosVisualizacaoAllCategorias>(
         res.categorias
       );
-      console.log(res.categorias);
       this.categoriasListaLength = res.totalCategorias;
     });
   }

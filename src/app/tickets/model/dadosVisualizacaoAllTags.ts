@@ -1,6 +1,6 @@
 export interface DadosVisualizacaoAllTags {
   id: number;
-  nome: string;
+  name: string;
   categoriaName: string;
   subtagsName: string[];
 }

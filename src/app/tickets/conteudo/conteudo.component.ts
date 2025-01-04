@@ -41,6 +41,10 @@ export class ConteudoComponent implements OnDestroy {
       this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
         this.showListCategorias(acaoMenu);
       });
+    const subscriptionShowListTags =
+      this.ticketService.pegarAcaoDoMenu$.subscribe((acaoMenu) => {
+        this.showListTags(acaoMenu);
+      });
     this.subscriptions.push(
       subscriptionCreateIncident,
       subscriptionCreateRequest,
@@ -104,6 +108,12 @@ export class ConteudoComponent implements OnDestroy {
   showListCategorias(acaoMenu: any) {
     if (acaoMenu.nome === 'Configuration Item Management') {
       this.tabs.push({ nomeTab: 'Configuration Item Management' });
+    }
+  }
+
+  showListTags(acaoMenu: any) {
+    if (acaoMenu.nome === 'Tag Management') {
+      this.tabs.push({ nomeTab: 'Tag Management' });
     }
   }
 
