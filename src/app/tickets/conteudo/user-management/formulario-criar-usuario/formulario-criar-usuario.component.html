@@ -1,0 +1,98 @@
+<h2 mat-dialog-title>Create User</h2>
+<mat-dialog-content>
+  <form *ngIf="usuarioForm !== undefined" [formGroup]="usuarioForm">
+    <mat-card class="formulario-personal-data" appearance="outlined">
+      <mat-card-header>
+        <mat-card-subtitle>Personal Data</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field appearance="outline" class="formulario-nome">
+          <mat-label>Name:</mat-label>
+          <input type="text" formControlName="nome" matInput />
+          <mat-error *ngIf="usuarioForm.get('nome')?.hasError('required')"
+            >Name is <strong>required</strong>.</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="formulario-email">
+          <mat-label>Email:</mat-label>
+          <input
+            type="email"
+            formControlName="email"
+            matInput
+            placeholder="Ex. abcde@email.com"
+          />
+          <mat-error *ngIf="usuarioForm.get('email')?.hasError('required')"
+            >Email is <strong>required</strong>.</mat-error
+          >
+          <mat-error *ngIf="usuarioForm.get('email')?.hasError('email')"
+            >Please enter a valid email address.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="formulario-telefone">
+          <mat-label>Phone:</mat-label>
+          <input type="text" formControlName="telefone" matInput />
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="formulario-technical-data" appearance="outlined">
+      <mat-card-header>
+        <mat-card-subtitle>Technical Data</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field appearance="outline" class="formulario-grupos-tecnicos">
+          <mat-label>Technical Groups:</mat-label>
+          <mat-chip-grid #chipGrid>
+            <mat-chip-row
+              (removed)="removeTechnicalGroup(group)"
+              *ngFor="
+                let group of listaGruposTecnicosEscolhidos;
+                let index = index
+              "
+            >
+              {{ group.nome }}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input
+            matInput
+            type="text"
+            [formControl]="gruposTecnicosControl"
+            [matAutocomplete]="autoGruposTecnicos"
+            [matChipInputFor]="chipGrid"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #autoGruposTecnicos="matAutocomplete"
+            [displayWith]="displayWithGT"
+            (optionSelected)="selected($event)"
+          >
+            <mat-option
+              *ngFor="let grupoTecnico of listaGruposTecnicos | async"
+              [value]="grupoTecnico"
+            >
+              {{ grupoTecnico.nome }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-checkbox
+          class="check-administrador"
+          formControlName="administrador"
+          >Administrator user</mat-checkbox
+        >
+      </mat-card-content>
+    </mat-card>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    [mat-dialog-close]="salvarCriacaoUsuario()"
+    cdkFocusInitial
+    color="primary"
+  >
+    Save
+  </button>
+</mat-dialog-actions>

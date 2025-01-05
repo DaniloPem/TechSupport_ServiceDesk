@@ -1,3 +1,4 @@
+import { Usuario } from './../../model/usuario';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
@@ -5,6 +6,8 @@ import { DadosVisualizacaoAllUsuarios } from '../../model/dadosVisualizacaoAllUs
 import { UsuarioService } from '../../services/usuario.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { debounceTime } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { FormularioCriarUsuarioComponent } from './formulario-criar-usuario/formulario-criar-usuario.component';
 
 @Component({
   selector: 'app-user-management',
@@ -31,7 +34,10 @@ export class UserManagementComponent implements AfterViewInit {
   pageSize: number = 30;
   usuariosListaLength!: number;
 
-  constructor(private usuarioService: UsuarioService) {
+  constructor(
+    private usuarioService: UsuarioService,
+    private dialog: MatDialog
+  ) {
     this.iniciarValueChangesFiltro();
   }
 
@@ -71,5 +77,18 @@ export class UserManagementComponent implements AfterViewInit {
         this.pageSize = this.paginator.pageSize;
         this.usuariosListaLength = res.totalUsuarios;
       });
+  }
+
+  openDialogCriarUsuario() {
+    this.dialog.open(FormularioCriarUsuarioComponent, {
+      data: {
+        nome: '',
+        email: '',
+        telefone: '',
+        gruposAssignadosId: '',
+        administrador: '',
+      },
+      width: '50%',
+    });
   }
 }

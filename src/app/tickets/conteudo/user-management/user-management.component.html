@@ -4,7 +4,14 @@
       <mat-label>Filter</mat-label>
       <input matInput #input [formControl]="filterListaUsuariosControl" />
     </mat-form-field>
-    <button mat-flat-button class="botao-create" color="primary">Create</button>
+    <button
+      mat-flat-button
+      class="botao-create"
+      color="primary"
+      (click)="openDialogCriarUsuario()"
+    >
+      Create
+    </button>
   </div>
 
   <div class="mat-elevation-z8 tabela-lista-users">

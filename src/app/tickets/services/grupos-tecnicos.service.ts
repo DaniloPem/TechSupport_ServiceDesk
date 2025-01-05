@@ -30,7 +30,7 @@ export class GruposTecnicosService {
 
   getGruposTecnicosPorNome(nomeGrupo: string): Observable<AtributoDto[]> {
     return this.httpClient.get<AtributoDto[]>(
-      `${this.API}/gruposAssignados/por-nome?nome=${nomeGrupo}`
+      `${this.API}/por-nome?nome=${nomeGrupo}`
     );
   }
 }

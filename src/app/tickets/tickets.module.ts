@@ -33,6 +33,9 @@ import { UserManagementComponent } from './conteudo/user-management/user-managem
 import { TechnicalGroupsManagementComponent } from './conteudo/technical-groups-management/technical-groups-management.component';
 import { CategoriaManagementComponent } from './conteudo/categoria-management/categoria-management.component';
 import { TagManagementComponent } from './conteudo/tag-management/tag-management.component';
+import { FormularioCriarUsuarioComponent } from './conteudo/user-management/formulario-criar-usuario/formulario-criar-usuario.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,7 @@ import { TagManagementComponent } from './conteudo/tag-management/tag-management
     TechnicalGroupsManagementComponent,
     CategoriaManagementComponent,
     TagManagementComponent,
+    FormularioCriarUsuarioComponent,
   ],
   imports: [
     CommonModule,
@@ -69,6 +73,8 @@ import { TagManagementComponent } from './conteudo/tag-management/tag-management
     MatTableModule,
     MatSnackBarModule,
     MatPaginatorModule,
+    MatChipsModule,
+    MatCheckboxModule,
   ],
 })
 export class TicketsModule {}
