@@ -3,6 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GruposTecnicosPage } from '../model/grupos-tecnicos-page';
 
+export interface AtributoDto {
+  id: number;
+  nome: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,5 +26,11 @@ export class GruposTecnicosService {
       .set('page', page)
       .set('pageSize', pageSize);
     return this.httpClient.get<GruposTecnicosPage>(`${this.API}`, { params });
+  }
+
+  getGruposTecnicosPorNome(nomeGrupo: string): Observable<AtributoDto[]> {
+    return this.httpClient.get<AtributoDto[]>(
+      `${this.API}/gruposAssignados/por-nome?nome=${nomeGrupo}`
+    );
   }
 }
