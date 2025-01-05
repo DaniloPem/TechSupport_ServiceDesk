@@ -18,5 +18,9 @@ $altura-mat-tab: 48px;
 
 .mat-mdc-row .mat-mdc-cell {
   font-size: 13px;
-  cursor: pointer;
+}
+
+.botao-create {
+  float: right;
+  margin: 15px 5vw;
 }
