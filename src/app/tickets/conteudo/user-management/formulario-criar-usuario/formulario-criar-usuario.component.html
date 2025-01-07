@@ -87,12 +87,7 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button
-    mat-button
-    [mat-dialog-close]="salvarCriacaoUsuario()"
-    cdkFocusInitial
-    color="primary"
-  >
+  <button mat-button (click)="salvarUsuario()" cdkFocusInitial color="primary">
     Save
   </button>
 </mat-dialog-actions>

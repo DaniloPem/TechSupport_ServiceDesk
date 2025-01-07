@@ -14,6 +14,7 @@ import {
 } from 'src/app/tickets/services/grupos-tecnicos.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-formulario-criar-usuario',
@@ -33,7 +34,8 @@ export class FormularioCriarUsuarioComponent {
     public dialogRef: MatDialogRef<FormularioCriarUsuarioComponent>,
     private formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
-    private gruposTecnicosService: GruposTecnicosService
+    private gruposTecnicosService: GruposTecnicosService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -44,8 +46,8 @@ export class FormularioCriarUsuarioComponent {
       nome: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
       telefone: [null],
-      gruposAssignadosId: [false],
-      administrador: [null],
+      gruposAssignadosId: [null],
+      administrador: [false],
     });
   }
 
@@ -88,7 +90,29 @@ export class FormularioCriarUsuarioComponent {
     }
   }
 
-  salvarCriacaoUsuario() {}
+  salvarUsuario() {
+    const listaGrouposAssignadosIds = this.listaGruposTecnicosEscolhidos.map(
+      (grupo) => grupo.id
+    );
+    this.usuarioForm
+      ?.get('gruposAssignadosId')
+      ?.setValue(listaGrouposAssignadosIds);
+    this.usuarioService.createUser(this.usuarioForm?.value).subscribe({
+      next: () => {
+        this.dialogRef.close();
+        this.usuarioSalvoComSucesso();
+      },
+      error: () => this.erroAoSalvarUsuario(),
+    });
+  }
+
+  private usuarioSalvoComSucesso() {
+    this.snackBar.open('User created successfully.', '', { duration: 2000 });
+  }
+
+  private erroAoSalvarUsuario() {
+    this.snackBar.open('Error creating user.', '', { duration: 2000 });
+  }
 
   displayWithGT = (gt: AtributoDto) => gt?.nome || '';
 }
