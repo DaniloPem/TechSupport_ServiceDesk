@@ -27,4 +27,8 @@ export class UsuarioService {
   createUser(usuarioRecord: Partial<Usuario>): Observable<number> {
     return this.httpClient.post<number>(this.API, usuarioRecord);
   }
+
+  getUsuarioById(id: number): Observable<Usuario> {
+    return this.httpClient.get<Usuario>(`${this.API}/${id}`);
+  }
 }
