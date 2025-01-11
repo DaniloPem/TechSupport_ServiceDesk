@@ -36,6 +36,8 @@ import { TagManagementComponent } from './conteudo/tag-management/tag-management
 import { FormularioCriarUsuarioComponent } from './conteudo/user-management/formulario-criar-usuario/formulario-criar-usuario.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MostrarCodigoUsuarioDialogComponent } from './conteudo/user-management/formulario-criar-usuario/mostrar-codigo-usuario-dialog/mostrar-codigo-usuario-dialog.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     CategoriaManagementComponent,
     TagManagementComponent,
     FormularioCriarUsuarioComponent,
+    MostrarCodigoUsuarioDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -75,6 +78,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatPaginatorModule,
     MatChipsModule,
     MatCheckboxModule,
+    MatDividerModule,
   ],
 })
 export class TicketsModule {}

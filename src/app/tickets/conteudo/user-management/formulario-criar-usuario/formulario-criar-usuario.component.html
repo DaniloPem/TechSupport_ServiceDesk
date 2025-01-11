@@ -7,7 +7,7 @@
       </mat-card-header>
       <mat-card-content>
         <mat-form-field appearance="outline" class="formulario-nome">
-          <mat-label>Name:</mat-label>
+          <mat-label>Full Name:</mat-label>
           <input type="text" formControlName="nome" matInput />
           <mat-error *ngIf="usuarioForm.get('nome')?.hasError('required')"
             >Name is <strong>required</strong>.</mat-error

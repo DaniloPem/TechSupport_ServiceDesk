@@ -1,4 +1,4 @@
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   FormBuilder,
@@ -15,6 +15,7 @@ import {
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MostrarCodigoUsuarioDialogComponent } from './mostrar-codigo-usuario-dialog/mostrar-codigo-usuario-dialog.component';
 
 @Component({
   selector: 'app-formulario-criar-usuario',
@@ -35,7 +36,8 @@ export class FormularioCriarUsuarioComponent {
     private formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
     private gruposTecnicosService: GruposTecnicosService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -98,16 +100,14 @@ export class FormularioCriarUsuarioComponent {
       ?.get('gruposAssignadosId')
       ?.setValue(listaGrouposAssignadosIds);
     this.usuarioService.createUser(this.usuarioForm?.value).subscribe({
-      next: () => {
+      next: (userId) => {
+        this.dialog.open(MostrarCodigoUsuarioDialogComponent, {
+          data: userId,
+        });
         this.dialogRef.close();
-        this.usuarioSalvoComSucesso();
       },
       error: () => this.erroAoSalvarUsuario(),
     });
-  }
-
-  private usuarioSalvoComSucesso() {
-    this.snackBar.open('User created successfully.', '', { duration: 2000 });
   }
 
   private erroAoSalvarUsuario() {

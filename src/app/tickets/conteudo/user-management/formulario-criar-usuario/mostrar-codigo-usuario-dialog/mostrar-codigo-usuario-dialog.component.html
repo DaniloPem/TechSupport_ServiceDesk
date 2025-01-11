@@ -1,0 +1,16 @@
+<mat-dialog-content>
+  <h3 mat-dialog-title>User created successfully</h3>
+  <mat-list>
+    <mat-list-item>Name: {{ usuario.nome }}</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Code: {{ usuario.codigo }}</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Email: {{ usuario.email }}</mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()" cdkFocusInitial color="primary">
+    Ok
+  </button>
+</mat-dialog-actions>
