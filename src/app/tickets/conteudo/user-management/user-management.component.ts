@@ -22,6 +22,7 @@ export class UserManagementComponent implements AfterViewInit {
     'telefone',
     'gruposAssignados',
     'administrador',
+    'actions',
   ];
 
   dataSource!: MatTableDataSource<DadosVisualizacaoAllUsuarios>;

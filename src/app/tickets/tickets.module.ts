@@ -38,6 +38,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MostrarCodigoUsuarioDialogComponent } from './conteudo/user-management/formulario-criar-usuario/mostrar-codigo-usuario-dialog/mostrar-codigo-usuario-dialog.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { ListaGruposAssignadosPipePipe } from './pipe/lista-grupos-assignados-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MatDividerModule } from '@angular/material/divider';
     TagManagementComponent,
     FormularioCriarUsuarioComponent,
     MostrarCodigoUsuarioDialogComponent,
+    ListaGruposAssignadosPipePipe,
   ],
   imports: [
     CommonModule,
