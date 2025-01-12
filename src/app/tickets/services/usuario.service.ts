@@ -31,4 +31,11 @@ export class UsuarioService {
   getUsuarioById(id: number): Observable<Usuario> {
     return this.httpClient.get<Usuario>(`${this.API}/${id}`);
   }
+
+  editUser(usuarioRecord: Partial<Usuario>): Observable<number> {
+    return this.httpClient.put<number>(
+      `${this.API}/${usuarioRecord.id}`,
+      usuarioRecord
+    );
+  }
 }
