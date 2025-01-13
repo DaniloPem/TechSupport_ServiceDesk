@@ -104,7 +104,8 @@ export class FormularioCriarUsuarioComponent {
         this.dialog.open(MostrarCodigoUsuarioDialogComponent, {
           data: userId,
         });
-        this.dialogRef.close();
+        const usuarioFoiCriado = true;
+        this.dialogRef.close(usuarioFoiCriado);
       },
       error: () => this.erroAoSalvarUsuario(),
     });

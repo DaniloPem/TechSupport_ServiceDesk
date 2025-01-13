@@ -81,23 +81,37 @@ export class UserManagementComponent implements AfterViewInit {
   }
 
   openDialogCriarUsuario() {
-    this.dialog.open(FormularioCriarUsuarioComponent, {
-      data: {
-        nome: '',
-        email: '',
-        telefone: '',
-        gruposAssignadosId: '',
-        administrador: '',
-      },
-      width: '50%',
-    });
+    this.dialog
+      .open(FormularioCriarUsuarioComponent, {
+        data: {
+          nome: '',
+          email: '',
+          telefone: '',
+          gruposAssignadosId: '',
+          administrador: '',
+        },
+        width: '50%',
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.carregarListaUsuarios();
+        }
+      });
   }
 
   abrirFormularioEditarUsuario(usuario: any) {
-    this.dialog.open(FormularioEditarUsuarioComponent, {
-      data: usuario,
-      width: '50%',
-      disableClose: true,
-    });
+    this.dialog
+      .open(FormularioEditarUsuarioComponent, {
+        data: usuario,
+        width: '50%',
+        disableClose: true,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.carregarListaUsuarios();
+        }
+      });
   }
 }

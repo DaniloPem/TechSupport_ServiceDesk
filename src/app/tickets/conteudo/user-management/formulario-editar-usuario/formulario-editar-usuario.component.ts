@@ -120,7 +120,8 @@ export class FormularioEditarUsuarioComponent {
     this.usuarioService.editUser(this.usuarioForm?.value).subscribe({
       next: () => {
         this.usuarioSalvoComSucesso();
-        this.dialogRef.close();
+        const usuarioFoiEditado = true;
+        this.dialogRef.close(usuarioFoiEditado);
       },
       error: () => this.erroAoSalvarUsuario(),
     });
