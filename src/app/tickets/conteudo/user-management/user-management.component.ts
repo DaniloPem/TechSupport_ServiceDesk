@@ -1,4 +1,3 @@
-import { Usuario } from './../../model/usuario';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { debounceTime } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { FormularioCriarUsuarioComponent } from './formulario-criar-usuario/formulario-criar-usuario.component';
+import { FormularioEditarUsuarioComponent } from './formulario-editar-usuario/formulario-editar-usuario.component';
 
 @Component({
   selector: 'app-user-management',
@@ -90,6 +90,14 @@ export class UserManagementComponent implements AfterViewInit {
         administrador: '',
       },
       width: '50%',
+    });
+  }
+
+  abrirFormularioEditarUsuario(usuario: any) {
+    this.dialog.open(FormularioEditarUsuarioComponent, {
+      data: usuario,
+      width: '50%',
+      disableClose: true,
     });
   }
 }

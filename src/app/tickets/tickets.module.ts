@@ -39,6 +39,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MostrarCodigoUsuarioDialogComponent } from './conteudo/user-management/formulario-criar-usuario/mostrar-codigo-usuario-dialog/mostrar-codigo-usuario-dialog.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { ListaGruposAssignadosPipePipe } from './pipe/lista-grupos-assignados-pipe.pipe';
+import { FormularioEditarUsuarioComponent } from './conteudo/user-management/formulario-editar-usuario/formulario-editar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ListaGruposAssignadosPipePipe } from './pipe/lista-grupos-assignados-pi
     FormularioCriarUsuarioComponent,
     MostrarCodigoUsuarioDialogComponent,
     ListaGruposAssignadosPipePipe,
+    FormularioEditarUsuarioComponent,
   ],
   imports: [
     CommonModule,

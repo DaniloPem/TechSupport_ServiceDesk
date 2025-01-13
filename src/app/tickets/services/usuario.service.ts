@@ -2,7 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UsuarioPage } from '../model/usuario-page';
-import { Usuario } from '../model/usuario';
+import { UsuarioCadastro } from '../model/usuario-cadastro';
+import { DadosVisualizacaoUsuario } from '../model/DadosVisualizacaoUsuario';
 
 @Injectable({
   providedIn: 'root',
@@ -24,15 +25,17 @@ export class UsuarioService {
     return this.httpClient.get<UsuarioPage>(`${this.API}`, { params });
   }
 
-  createUser(usuarioRecord: Partial<Usuario>): Observable<number> {
+  createUser(usuarioRecord: Partial<UsuarioCadastro>): Observable<number> {
     return this.httpClient.post<number>(this.API, usuarioRecord);
   }
 
-  getUsuarioById(id: number): Observable<Usuario> {
-    return this.httpClient.get<Usuario>(`${this.API}/${id}`);
+  getUsuarioById(id: number): Observable<DadosVisualizacaoUsuario> {
+    return this.httpClient.get<DadosVisualizacaoUsuario>(`${this.API}/${id}`);
   }
 
-  editUser(usuarioRecord: Partial<Usuario>): Observable<number> {
+  editUser(
+    usuarioRecord: Partial<DadosVisualizacaoUsuario>
+  ): Observable<number> {
     return this.httpClient.put<number>(
       `${this.API}/${usuarioRecord.id}`,
       usuarioRecord

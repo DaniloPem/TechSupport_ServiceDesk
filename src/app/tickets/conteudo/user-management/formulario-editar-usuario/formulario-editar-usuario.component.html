@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Create User</h2>
+<h2 mat-dialog-title>Edit User</h2>
 <mat-dialog-content>
   <form *ngIf="usuarioForm !== undefined" [formGroup]="usuarioForm">
     <mat-card class="formulario-personal-data" appearance="outlined">
@@ -6,6 +6,10 @@
         <mat-card-subtitle>Personal Data</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
+        <mat-form-field appearance="outline">
+          <mat-label>Code:</mat-label>
+          <input type="text" readonly formControlName="codigo" matInput />
+        </mat-form-field>
         <mat-form-field appearance="outline" class="formulario-nome">
           <mat-label>Full Name:</mat-label>
           <input type="text" formControlName="nome" matInput />
@@ -87,7 +91,13 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button (click)="salvarUsuario()" cdkFocusInitial color="primary">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-button
+    (click)="salvarEdicaoDoUsuario()"
+    cdkFocusInitial
+    color="primary"
+  >
     Save
   </button>
 </mat-dialog-actions>
