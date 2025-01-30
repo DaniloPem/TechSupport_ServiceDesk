@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GruposTecnicosPage } from '../model/grupos-tecnicos-page';
+import { DadosVisualizacaoGrupoTecnico } from '../model/dadosVisualizacaoGrupoTecnico';
 
 export interface AtributoDto {
   id: number;
@@ -36,5 +37,11 @@ export class GruposTecnicosService {
 
   getGruposTecnicosPorIds(ids: number[]): Observable<AtributoDto[]> {
     return this.httpClient.get<AtributoDto[]>(`${this.API}/${ids}`);
+  }
+
+  getGrupoTecnico(id: number): Observable<DadosVisualizacaoGrupoTecnico> {
+    return this.httpClient.get<DadosVisualizacaoGrupoTecnico>(
+      `${this.API}/management/${id}`
+    );
   }
 }
