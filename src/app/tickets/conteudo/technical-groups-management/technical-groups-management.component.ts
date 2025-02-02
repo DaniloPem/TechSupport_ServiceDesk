@@ -7,6 +7,7 @@ import { debounceTime } from 'rxjs';
 import { GruposTecnicosService } from '../../services/grupos-tecnicos.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormularioEditarGrupoTecnicoComponent } from './formulario-editar-grupo-tecnico/formulario-editar-grupo-tecnico.component';
+import { FormularioCriarGrupoTecnicoComponent } from './formulario-criar-grupo-tecnico/formulario-criar-grupo-tecnico.component';
 
 @Component({
   selector: 'app-technical-groups-management',
@@ -80,7 +81,22 @@ export class TechnicalGroupsManagementComponent implements AfterViewInit {
       });
   }
 
-  openDialogCriarGrupoTecnico() {}
+  openDialogCriarGrupoTecnico() {
+    this.dialog
+      .open(FormularioCriarGrupoTecnicoComponent, {
+        data: {
+          nome: '',
+          categoriasId: '',
+        },
+        width: '50%',
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.carregarListaGruposTecnicos();
+        }
+      });
+  }
 
   abrirFormularioEditarGrupoTecnico(grupoTecnico: any) {
     this.dialog

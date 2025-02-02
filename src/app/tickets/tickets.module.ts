@@ -41,6 +41,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ListaGruposAssignadosPipePipe } from './pipe/lista-grupos-assignados-pipe.pipe';
 import { FormularioEditarUsuarioComponent } from './conteudo/user-management/formulario-editar-usuario/formulario-editar-usuario.component';
 import { FormularioEditarGrupoTecnicoComponent } from './conteudo/technical-groups-management/formulario-editar-grupo-tecnico/formulario-editar-grupo-tecnico.component';
+import { FormularioCriarGrupoTecnicoComponent } from './conteudo/technical-groups-management/formulario-criar-grupo-tecnico/formulario-criar-grupo-tecnico.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { FormularioEditarGrupoTecnicoComponent } from './conteudo/technical-grou
     ListaGruposAssignadosPipePipe,
     FormularioEditarUsuarioComponent,
     FormularioEditarGrupoTecnicoComponent,
+    FormularioCriarGrupoTecnicoComponent,
   ],
   imports: [
     CommonModule,
