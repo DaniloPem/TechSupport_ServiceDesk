@@ -31,4 +31,10 @@ export class CategoriaService {
   getListCategoriasPorIds(ids: number[]): Observable<AtributoDto[]> {
     return this.httpClient.get<AtributoDto[]>(`${this.API}/${ids}`);
   }
+
+  getCategoriasPorNome(nomeCategoria: string): Observable<AtributoDto[]> {
+    return this.httpClient.get<AtributoDto[]>(
+      `${this.API}/por-nome?nome=${nomeCategoria}`
+    );
+  }
 }
