@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GruposTecnicosPage } from '../model/grupos-tecnicos-page';
 import { DadosVisualizacaoGrupoTecnico } from '../model/dadosVisualizacaoGrupoTecnico';
+import { GrupoTecnicoCadastro } from '../model/grupo-tecnico-cadastro';
 
 export interface AtributoDto {
   id: number;
@@ -43,6 +44,12 @@ export class GruposTecnicosService {
     return this.httpClient.get<DadosVisualizacaoGrupoTecnico>(
       `${this.API}/management/${id}`
     );
+  }
+
+  createTechnicalGroup(
+    grupoTecnicoRecord: Partial<GrupoTecnicoCadastro>
+  ): Observable<number> {
+    return this.httpClient.post<number>(`${this.API}`, grupoTecnicoRecord);
   }
 
   editGrupoTecnico(
