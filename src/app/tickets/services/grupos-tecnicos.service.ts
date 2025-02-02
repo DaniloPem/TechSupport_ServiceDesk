@@ -60,4 +60,8 @@ export class GruposTecnicosService {
       grupoTecnicoRecord
     );
   }
+
+  disableTechnicalGroup(id: number) {
+    return this.httpClient.delete(`${this.API}/${id}`);
+  }
 }

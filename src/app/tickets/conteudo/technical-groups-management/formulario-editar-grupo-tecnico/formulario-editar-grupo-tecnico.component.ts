@@ -37,8 +37,7 @@ export class FormularioEditarGrupoTecnicoComponent {
     private categoriaService: CategoriaService,
     private formBuilder: FormBuilder,
     private gruposTecnicosService: GruposTecnicosService,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {

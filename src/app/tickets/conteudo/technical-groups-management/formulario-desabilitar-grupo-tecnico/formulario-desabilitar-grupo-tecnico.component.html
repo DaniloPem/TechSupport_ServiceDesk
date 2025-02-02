@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Disable Technical Group</h2>
+<mat-dialog-content>
+  <p>
+    Are you sure you want to disable the Technical Group:
+    <strong>{{ grupo.nome }}</strong
+    >?
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-button
+    (click)="desabilitarGrupoTecnico()"
+    cdkFocusInitial
+    color="primary"
+  >
+    Save
+  </button>
+</mat-dialog-actions>

@@ -47,9 +47,10 @@
           </button>
           <button
             mat-icon-button
-            matTooltip="Delete Technical Group"
+            matTooltip="Disable Technical Group"
             color="warn"
-            aria-label="Delete Technical Group"
+            aria-label="Disable Technical Group"
+            (click)="abrirDialogDesabilitarGrupoTecnico(row)"
           >
             <mat-icon>delete</mat-icon>
           </button>

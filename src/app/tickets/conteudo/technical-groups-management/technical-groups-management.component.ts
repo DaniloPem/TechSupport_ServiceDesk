@@ -8,6 +8,7 @@ import { GruposTecnicosService } from '../../services/grupos-tecnicos.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormularioEditarGrupoTecnicoComponent } from './formulario-editar-grupo-tecnico/formulario-editar-grupo-tecnico.component';
 import { FormularioCriarGrupoTecnicoComponent } from './formulario-criar-grupo-tecnico/formulario-criar-grupo-tecnico.component';
+import { FormularioDesabilitarGrupoTecnicoComponent } from './formulario-desabilitar-grupo-tecnico/formulario-desabilitar-grupo-tecnico.component';
 
 @Component({
   selector: 'app-technical-groups-management',
@@ -104,6 +105,20 @@ export class TechnicalGroupsManagementComponent implements AfterViewInit {
         data: grupoTecnico,
         width: '50%',
         disableClose: true,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.carregarListaGruposTecnicos();
+        }
+      });
+  }
+
+  abrirDialogDesabilitarGrupoTecnico(grupoTecnico: any) {
+    this.dialog
+      .open(FormularioDesabilitarGrupoTecnicoComponent, {
+        data: grupoTecnico,
+        width: '50%',
       })
       .afterClosed()
       .subscribe((result) => {

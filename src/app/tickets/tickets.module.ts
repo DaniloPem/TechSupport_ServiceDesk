@@ -42,6 +42,7 @@ import { ListaGruposAssignadosPipePipe } from './pipe/lista-grupos-assignados-pi
 import { FormularioEditarUsuarioComponent } from './conteudo/user-management/formulario-editar-usuario/formulario-editar-usuario.component';
 import { FormularioEditarGrupoTecnicoComponent } from './conteudo/technical-groups-management/formulario-editar-grupo-tecnico/formulario-editar-grupo-tecnico.component';
 import { FormularioCriarGrupoTecnicoComponent } from './conteudo/technical-groups-management/formulario-criar-grupo-tecnico/formulario-criar-grupo-tecnico.component';
+import { FormularioDesabilitarGrupoTecnicoComponent } from './conteudo/technical-groups-management/formulario-desabilitar-grupo-tecnico/formulario-desabilitar-grupo-tecnico.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { FormularioCriarGrupoTecnicoComponent } from './conteudo/technical-group
     FormularioEditarUsuarioComponent,
     FormularioEditarGrupoTecnicoComponent,
     FormularioCriarGrupoTecnicoComponent,
+    FormularioDesabilitarGrupoTecnicoComponent,
   ],
   imports: [
     CommonModule,
