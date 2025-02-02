@@ -35,7 +35,7 @@ export class FormularioEditarUsuarioComponent {
   listaGruposTecnicosEscolhidos: AtributoDto[] = [];
 
   constructor(
-    public dialogRef: MatDialogRef<MostrarCodigoUsuarioDialogComponent>,
+    public dialogRef: MatDialogRef<FormularioEditarUsuarioComponent>,
     @Inject(MAT_DIALOG_DATA) public usuario: any,
     private usuarioService: UsuarioService,
     private formBuilder: FormBuilder,

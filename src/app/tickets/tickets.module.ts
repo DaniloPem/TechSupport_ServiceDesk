@@ -40,6 +40,7 @@ import { MostrarCodigoUsuarioDialogComponent } from './conteudo/user-management/
 import { MatDividerModule } from '@angular/material/divider';
 import { ListaGruposAssignadosPipePipe } from './pipe/lista-grupos-assignados-pipe.pipe';
 import { FormularioEditarUsuarioComponent } from './conteudo/user-management/formulario-editar-usuario/formulario-editar-usuario.component';
+import { FormularioEditarGrupoTecnicoComponent } from './conteudo/technical-groups-management/formulario-editar-grupo-tecnico/formulario-editar-grupo-tecnico.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { FormularioEditarUsuarioComponent } from './conteudo/user-management/for
     MostrarCodigoUsuarioDialogComponent,
     ListaGruposAssignadosPipePipe,
     FormularioEditarUsuarioComponent,
+    FormularioEditarGrupoTecnicoComponent,
   ],
   imports: [
     CommonModule,

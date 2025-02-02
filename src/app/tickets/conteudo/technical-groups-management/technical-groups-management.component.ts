@@ -5,6 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DadosVisualizacaoAllGruposTecnicos } from '../../model/dadosVisualizacaoAllGruposTecnicos';
 import { debounceTime } from 'rxjs';
 import { GruposTecnicosService } from '../../services/grupos-tecnicos.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FormularioEditarGrupoTecnicoComponent } from './formulario-editar-grupo-tecnico/formulario-editar-grupo-tecnico.component';
 
 @Component({
   selector: 'app-technical-groups-management',
@@ -12,7 +14,12 @@ import { GruposTecnicosService } from '../../services/grupos-tecnicos.service';
   styleUrls: ['./technical-groups-management.component.scss'],
 })
 export class TechnicalGroupsManagementComponent implements AfterViewInit {
-  displayedColumns: string[] = ['nome', 'categoriasNome', 'usuariosNome'];
+  displayedColumns: string[] = [
+    'nome',
+    'categoriasNome',
+    'usuariosNome',
+    'actions',
+  ];
 
   dataSource!: MatTableDataSource<DadosVisualizacaoAllGruposTecnicos>;
 
@@ -24,15 +31,18 @@ export class TechnicalGroupsManagementComponent implements AfterViewInit {
   pageSize: number = 30;
   gruposListaLength!: number;
 
-  constructor(private gruposTecnicosService: GruposTecnicosService) {
+  constructor(
+    private gruposTecnicosService: GruposTecnicosService,
+    private dialog: MatDialog
+  ) {
     this.iniciarValueChangesFiltro();
   }
 
   ngAfterViewInit(): void {
-    this.carregarListaGrupos();
+    this.carregarListaGruposTecnicos();
   }
 
-  carregarListaGrupos() {
+  carregarListaGruposTecnicos() {
     this.gruposTecnicosService
       .getListGruposTecnicos('', 0, 30)
       .subscribe((res) => {
@@ -67,6 +77,23 @@ export class TechnicalGroupsManagementComponent implements AfterViewInit {
         this.pageIndex = this.paginator.pageIndex;
         this.pageSize = this.paginator.pageSize;
         this.gruposListaLength = res.totalGrupos;
+      });
+  }
+
+  openDialogCriarGrupoTecnico() {}
+
+  abrirFormularioEditarGrupoTecnico(grupoTecnico: any) {
+    this.dialog
+      .open(FormularioEditarGrupoTecnicoComponent, {
+        data: grupoTecnico,
+        width: '50%',
+        disableClose: true,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.carregarListaGruposTecnicos();
+        }
       });
   }
 }
