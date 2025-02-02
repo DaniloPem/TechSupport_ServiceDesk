@@ -44,4 +44,13 @@ export class GruposTecnicosService {
       `${this.API}/management/${id}`
     );
   }
+
+  editGrupoTecnico(
+    grupoTecnicoRecord: Partial<DadosVisualizacaoGrupoTecnico>
+  ): Observable<number> {
+    return this.httpClient.put<number>(
+      `${this.API}/${grupoTecnicoRecord.id}`,
+      grupoTecnicoRecord
+    );
+  }
 }
